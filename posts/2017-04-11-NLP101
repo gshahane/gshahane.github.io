@@ -1,6 +1,6 @@
 ---
 layout: post
-title: NLP 101: Text Analytics of J. K. Rowling's Commencement address
+title: NLP 101 &#58 Text Analytics of J. K. Rowling's Commencement address
 description: Parsing, Transforming, and Analyzing text using Pythin NLTK
 keywords: NLP, Python
 tags: [NLP, Python]
