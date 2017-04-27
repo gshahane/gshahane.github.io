@@ -1,7 +1,12 @@
 # Basic site info
 title:              "Gaurav Shahane •••"
+<<<<<<< HEAD
 description:        "Data Science Blog"
 keywords:           "Gaurav Shahane, personal blog, Data Science, Machine Learning, Statistics, Python"
+=======
+description:        "Data, Stats and Python"
+keywords:           "Gaurav Shahane, personal blog, Data Science, Machine Learning, Statistics, NLP, Python"
+>>>>>>> origin/master
 logo_text:          "Gaurav Shahane"
 show_tagline:       true # edit file in /_includes/tagline.html
 show_social_icons:  true # edit file in /_includes/social_links.html
