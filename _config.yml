@@ -1,7 +1,7 @@
 # Basic site info
 title:              "Gaurav Shahane •••"
 description:        "Data, Stats and Python"
-keywords:           "Gaurav Shahane, personal blog, Data Science, Machine Learning, Statistics, Python"
+keywords:           "Gaurav Shahane, personal blog, Data Science, Machine Learning, Statistics, NLP, Python"
 logo_text:          "Gaurav Shahane"
 show_tagline:       true # edit file in /_includes/tagline.html
 show_social_icons:  true # edit file in /_includes/social_links.html
