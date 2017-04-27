@@ -1,0 +1,533 @@
+---
+layout: post
+title: NLP 101: Text Analytics of J. K. Rowling's Commencement address
+description: Parsing, Transforming, and Analyzing text using Pythin NLTK
+keywords: NLP, Python
+tags: [NLP, Python]
+comments: true
+---
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <title>nltk 101</title>
+      <style>.markdown-preview:not([data-use-github-style]) { padding: 2em; font-size: 1.2em; color: rgb(171, 178, 191); overflow: auto; background-color: rgb(40, 44, 52); }
+.markdown-preview:not([data-use-github-style]) > :first-child { margin-top: 0px; }
+.markdown-preview:not([data-use-github-style]) h1, .markdown-preview:not([data-use-github-style]) h2, .markdown-preview:not([data-use-github-style]) h3, .markdown-preview:not([data-use-github-style]) h4, .markdown-preview:not([data-use-github-style]) h5, .markdown-preview:not([data-use-github-style]) h6 { line-height: 1.2; margin-top: 1.5em; margin-bottom: 0.5em; color: rgb(255, 255, 255); }
+.markdown-preview:not([data-use-github-style]) h1 { font-size: 2.4em; font-weight: 300; }
+.markdown-preview:not([data-use-github-style]) h2 { font-size: 1.8em; font-weight: 400; }
+.markdown-preview:not([data-use-github-style]) h3 { font-size: 1.5em; font-weight: 500; }
+.markdown-preview:not([data-use-github-style]) h4 { font-size: 1.2em; font-weight: 600; }
+.markdown-preview:not([data-use-github-style]) h5 { font-size: 1.1em; font-weight: 600; }
+.markdown-preview:not([data-use-github-style]) h6 { font-size: 1em; font-weight: 600; }
+.markdown-preview:not([data-use-github-style]) strong { color: rgb(255, 255, 255); }
+.markdown-preview:not([data-use-github-style]) del { color: rgb(124, 135, 156); }
+.markdown-preview:not([data-use-github-style]) a, .markdown-preview:not([data-use-github-style]) a code { color: rgb(82, 139, 255); }
+.markdown-preview:not([data-use-github-style]) img { max-width: 100%; }
+.markdown-preview:not([data-use-github-style]) > p { margin-top: 0px; margin-bottom: 1.5em; }
+.markdown-preview:not([data-use-github-style]) > ul, .markdown-preview:not([data-use-github-style]) > ol { margin-bottom: 1.5em; }
+.markdown-preview:not([data-use-github-style]) blockquote { margin: 1.5em 0px; font-size: inherit; color: rgb(124, 135, 156); border-color: rgb(75, 83, 98); border-width: 4px; }
+.markdown-preview:not([data-use-github-style]) hr { margin: 3em 0px; border-top: 2px dashed rgb(75, 83, 98); background: none; }
+.markdown-preview:not([data-use-github-style]) table { margin: 1.5em 0px; }
+.markdown-preview:not([data-use-github-style]) th { color: rgb(255, 255, 255); }
+.markdown-preview:not([data-use-github-style]) th, .markdown-preview:not([data-use-github-style]) td { padding: 0.66em 1em; border: 1px solid rgb(75, 83, 98); }
+.markdown-preview:not([data-use-github-style]) code { color: rgb(255, 255, 255); background-color: rgb(58, 63, 75); }
+.markdown-preview:not([data-use-github-style]) pre.editor-colors { margin: 1.5em 0px; padding: 1em; font-size: 0.92em; border-radius: 3px; background-color: rgb(49, 54, 63); }
+.markdown-preview:not([data-use-github-style]) kbd { color: rgb(255, 255, 255); border-width: 1px 1px 2px; border-style: solid; border-color: rgb(75, 83, 98) rgb(75, 83, 98) rgb(62, 68, 81); background-color: rgb(58, 63, 75); }
+.markdown-preview[data-use-github-style] { font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif; line-height: 1.6; word-wrap: break-word; padding: 30px; font-size: 16px; color: rgb(51, 51, 51); overflow: scroll; background-color: rgb(255, 255, 255); }
+.markdown-preview[data-use-github-style] > :first-child { margin-top: 0px !important; }
+.markdown-preview[data-use-github-style] > :last-child { margin-bottom: 0px !important; }
+.markdown-preview[data-use-github-style] a:not([href]) { color: inherit; text-decoration: none; }
+.markdown-preview[data-use-github-style] .absent { color: rgb(204, 0, 0); }
+.markdown-preview[data-use-github-style] .anchor { position: absolute; top: 0px; left: 0px; display: block; padding-right: 6px; padding-left: 30px; margin-left: -30px; }
+.markdown-preview[data-use-github-style] .anchor:focus { outline: none; }
+.markdown-preview[data-use-github-style] h1, .markdown-preview[data-use-github-style] h2, .markdown-preview[data-use-github-style] h3, .markdown-preview[data-use-github-style] h4, .markdown-preview[data-use-github-style] h5, .markdown-preview[data-use-github-style] h6 { position: relative; margin-top: 1em; margin-bottom: 16px; font-weight: bold; line-height: 1.4; }
+.markdown-preview[data-use-github-style] h1 .octicon-link, .markdown-preview[data-use-github-style] h2 .octicon-link, .markdown-preview[data-use-github-style] h3 .octicon-link, .markdown-preview[data-use-github-style] h4 .octicon-link, .markdown-preview[data-use-github-style] h5 .octicon-link, .markdown-preview[data-use-github-style] h6 .octicon-link { display: none; color: rgb(0, 0, 0); vertical-align: middle; }
+.markdown-preview[data-use-github-style] h1:hover .anchor, .markdown-preview[data-use-github-style] h2:hover .anchor, .markdown-preview[data-use-github-style] h3:hover .anchor, .markdown-preview[data-use-github-style] h4:hover .anchor, .markdown-preview[data-use-github-style] h5:hover .anchor, .markdown-preview[data-use-github-style] h6:hover .anchor { padding-left: 8px; margin-left: -30px; text-decoration: none; }
+.markdown-preview[data-use-github-style] h1:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h2:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h3:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h4:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h5:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h6:hover .anchor .octicon-link { display: inline-block; }
+.markdown-preview[data-use-github-style] h1 tt, .markdown-preview[data-use-github-style] h2 tt, .markdown-preview[data-use-github-style] h3 tt, .markdown-preview[data-use-github-style] h4 tt, .markdown-preview[data-use-github-style] h5 tt, .markdown-preview[data-use-github-style] h6 tt, .markdown-preview[data-use-github-style] h1 code, .markdown-preview[data-use-github-style] h2 code, .markdown-preview[data-use-github-style] h3 code, .markdown-preview[data-use-github-style] h4 code, .markdown-preview[data-use-github-style] h5 code, .markdown-preview[data-use-github-style] h6 code { font-size: inherit; }
+.markdown-preview[data-use-github-style] h1 { padding-bottom: 0.3em; font-size: 2.25em; line-height: 1.2; border-bottom: 1px solid rgb(238, 238, 238); }
+.markdown-preview[data-use-github-style] h1 .anchor { line-height: 1; }
+.markdown-preview[data-use-github-style] h2 { padding-bottom: 0.3em; font-size: 1.75em; line-height: 1.225; border-bottom: 1px solid rgb(238, 238, 238); }
+.markdown-preview[data-use-github-style] h2 .anchor { line-height: 1; }
+.markdown-preview[data-use-github-style] h3 { font-size: 1.5em; line-height: 1.43; }
+.markdown-preview[data-use-github-style] h3 .anchor { line-height: 1.2; }
+.markdown-preview[data-use-github-style] h4 { font-size: 1.25em; }
+.markdown-preview[data-use-github-style] h4 .anchor { line-height: 1.2; }
+.markdown-preview[data-use-github-style] h5 { font-size: 1em; }
+.markdown-preview[data-use-github-style] h5 .anchor { line-height: 1.1; }
+.markdown-preview[data-use-github-style] h6 { font-size: 1em; color: rgb(119, 119, 119); }
+.markdown-preview[data-use-github-style] h6 .anchor { line-height: 1.1; }
+.markdown-preview[data-use-github-style] p, .markdown-preview[data-use-github-style] blockquote, .markdown-preview[data-use-github-style] ul, .markdown-preview[data-use-github-style] ol, .markdown-preview[data-use-github-style] dl, .markdown-preview[data-use-github-style] table, .markdown-preview[data-use-github-style] pre { margin-top: 0px; margin-bottom: 16px; }
+.markdown-preview[data-use-github-style] hr { height: 4px; padding: 0px; margin: 16px 0px; border: 0px none; background-color: rgb(231, 231, 231); }
+.markdown-preview[data-use-github-style] ul, .markdown-preview[data-use-github-style] ol { padding-left: 2em; }
+.markdown-preview[data-use-github-style] ul.no-list, .markdown-preview[data-use-github-style] ol.no-list { padding: 0px; list-style-type: none; }
+.markdown-preview[data-use-github-style] ul ul, .markdown-preview[data-use-github-style] ul ol, .markdown-preview[data-use-github-style] ol ol, .markdown-preview[data-use-github-style] ol ul { margin-top: 0px; margin-bottom: 0px; }
+.markdown-preview[data-use-github-style] li > p { margin-top: 16px; }
+.markdown-preview[data-use-github-style] dl { padding: 0px; }
+.markdown-preview[data-use-github-style] dl dt { padding: 0px; margin-top: 16px; font-size: 1em; font-style: italic; font-weight: bold; }
+.markdown-preview[data-use-github-style] dl dd { padding: 0px 16px; margin-bottom: 16px; }
+.markdown-preview[data-use-github-style] blockquote { padding: 0px 15px; color: rgb(119, 119, 119); border-left: 4px solid rgb(221, 221, 221); }
+.markdown-preview[data-use-github-style] blockquote > :first-child { margin-top: 0px; }
+.markdown-preview[data-use-github-style] blockquote > :last-child { margin-bottom: 0px; }
+.markdown-preview[data-use-github-style] table { display: block; width: 100%; overflow: auto; word-break: keep-all; }
+.markdown-preview[data-use-github-style] table th { font-weight: bold; }
+.markdown-preview[data-use-github-style] table th, .markdown-preview[data-use-github-style] table td { padding: 6px 13px; border: 1px solid rgb(221, 221, 221); }
+.markdown-preview[data-use-github-style] table tr { border-top: 1px solid rgb(204, 204, 204); background-color: rgb(255, 255, 255); }
+.markdown-preview[data-use-github-style] table tr:nth-child(2n) { background-color: rgb(248, 248, 248); }
+.markdown-preview[data-use-github-style] img { max-width: 100%; box-sizing: border-box; }
+.markdown-preview[data-use-github-style] .emoji { max-width: none; }
+.markdown-preview[data-use-github-style] span.frame { display: block; overflow: hidden; }
+.markdown-preview[data-use-github-style] span.frame > span { display: block; float: left; width: auto; padding: 7px; margin: 13px 0px 0px; overflow: hidden; border: 1px solid rgb(221, 221, 221); }
+.markdown-preview[data-use-github-style] span.frame span img { display: block; float: left; }
+.markdown-preview[data-use-github-style] span.frame span span { display: block; padding: 5px 0px 0px; clear: both; color: rgb(51, 51, 51); }
+.markdown-preview[data-use-github-style] span.align-center { display: block; overflow: hidden; clear: both; }
+.markdown-preview[data-use-github-style] span.align-center > span { display: block; margin: 13px auto 0px; overflow: hidden; text-align: center; }
+.markdown-preview[data-use-github-style] span.align-center span img { margin: 0px auto; text-align: center; }
+.markdown-preview[data-use-github-style] span.align-right { display: block; overflow: hidden; clear: both; }
+.markdown-preview[data-use-github-style] span.align-right > span { display: block; margin: 13px 0px 0px; overflow: hidden; text-align: right; }
+.markdown-preview[data-use-github-style] span.align-right span img { margin: 0px; text-align: right; }
+.markdown-preview[data-use-github-style] span.float-left { display: block; float: left; margin-right: 13px; overflow: hidden; }
+.markdown-preview[data-use-github-style] span.float-left span { margin: 13px 0px 0px; }
+.markdown-preview[data-use-github-style] span.float-right { display: block; float: right; margin-left: 13px; overflow: hidden; }
+.markdown-preview[data-use-github-style] span.float-right > span { display: block; margin: 13px auto 0px; overflow: hidden; text-align: right; }
+.markdown-preview[data-use-github-style] code, .markdown-preview[data-use-github-style] tt { padding: 0.2em 0px; margin: 0px; font-size: 85%; border-radius: 3px; background-color: rgba(0, 0, 0, 0.0392157); }
+.markdown-preview[data-use-github-style] code::before, .markdown-preview[data-use-github-style] tt::before, .markdown-preview[data-use-github-style] code::after, .markdown-preview[data-use-github-style] tt::after { letter-spacing: -0.2em; content: " "; }
+.markdown-preview[data-use-github-style] code br, .markdown-preview[data-use-github-style] tt br { display: none; }
+.markdown-preview[data-use-github-style] del code { text-decoration: inherit; }
+.markdown-preview[data-use-github-style] pre > code { padding: 0px; margin: 0px; font-size: 100%; word-break: normal; white-space: pre; border: 0px; background: transparent; }
+.markdown-preview[data-use-github-style] .highlight { margin-bottom: 16px; }
+.markdown-preview[data-use-github-style] .highlight pre, .markdown-preview[data-use-github-style] pre { padding: 16px; overflow: auto; font-size: 85%; line-height: 1.45; border-radius: 3px; background-color: rgb(247, 247, 247); }
+.markdown-preview[data-use-github-style] .highlight pre { margin-bottom: 0px; word-break: normal; }
+.markdown-preview[data-use-github-style] pre { word-wrap: normal; }
+.markdown-preview[data-use-github-style] pre code, .markdown-preview[data-use-github-style] pre tt { display: inline; max-width: initial; padding: 0px; margin: 0px; overflow: initial; line-height: inherit; word-wrap: normal; border: 0px; background-color: transparent; }
+.markdown-preview[data-use-github-style] pre code::before, .markdown-preview[data-use-github-style] pre tt::before, .markdown-preview[data-use-github-style] pre code::after, .markdown-preview[data-use-github-style] pre tt::after { content: normal; }
+.markdown-preview[data-use-github-style] kbd { display: inline-block; padding: 3px 5px; font-size: 11px; line-height: 10px; color: rgb(85, 85, 85); vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(204, 204, 204) rgb(204, 204, 204) rgb(187, 187, 187); border-radius: 3px; box-shadow: rgb(187, 187, 187) 0px -1px 0px inset; background-color: rgb(252, 252, 252); }
+.markdown-preview[data-use-github-style] a { color: rgb(51, 122, 183); }
+.markdown-preview[data-use-github-style] code { color: inherit; }
+.markdown-preview[data-use-github-style] pre.editor-colors { padding: 0.8em 1em; margin-bottom: 1em; font-size: 0.85em; border-radius: 4px; overflow: auto; }
+.scrollbars-visible-always .markdown-preview pre.editor-colors .vertical-scrollbar, .scrollbars-visible-always .markdown-preview pre.editor-colors .horizontal-scrollbar { visibility: hidden; }
+.scrollbars-visible-always .markdown-preview pre.editor-colors:hover .vertical-scrollbar, .scrollbars-visible-always .markdown-preview pre.editor-colors:hover .horizontal-scrollbar { visibility: visible; }
+.markdown-preview .task-list-item-checkbox { position: absolute; margin: 0.25em 0px 0px -1.4em; }
+.markdown-themeable-pdf-page-break {
+  border-top: 2px dotted #0098ff;
+}
+.markdown-themeable-pdf-page-break span {
+  opacity: .35;
+}
+
+.bracket-matcher .region {
+  border-bottom: 1px dotted lime;
+  position: absolute;
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);
+}
+.spell-check-corrections {
+  width: 25em !important;
+}
+
+pre.editor-colors {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+pre.editor-colors .line.cursor-line {
+  background-color: rgba(153, 187, 255, 0.04);
+}
+pre.editor-colors .invisible {
+  color: #abb2bf;
+}
+pre.editor-colors .cursor {
+  border-left: 2px solid #528bff;
+}
+pre.editor-colors .selection .region {
+  background-color: #3e4451;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-bottom: 1px solid #528bff;
+  box-sizing: border-box;
+}
+pre.editor-colors .invisible-character {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .indent-guide {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .wrap-guide {
+  background-color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .find-result .region.region.region,
+pre.editor-colors .current-result .region.region.region {
+  border-radius: 2px;
+  background-color: rgba(82, 139, 255, 0.24);
+  transition: border-color 0.4s;
+}
+pre.editor-colors .find-result .region.region.region {
+  border: 2px solid transparent;
+}
+pre.editor-colors .current-result .region.region.region {
+  border: 2px solid #528bff;
+  transition-duration: .1s;
+}
+pre.editor-colors .gutter .line-number {
+  color: #636d83;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  color: #abb2bf;
+  background-color: #2c313a;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  background-color: transparent;
+}
+pre.editor-colors .gutter .line-number .icon-right {
+  color: #abb2bf;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed.git-line-removed::before {
+  bottom: -3px;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 25px;
+  border-bottom: 1px dotted rgba(224, 82, 82, 0.5);
+  pointer-events: none;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #abb2bf;
+}
+.syntax--comment {
+  color: #5c6370;
+  font-style: italic;
+}
+.syntax--comment .syntax--markup.syntax--link {
+  color: #5c6370;
+}
+.syntax--entity.syntax--name.syntax--type {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #98c379;
+}
+.syntax--keyword {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--control {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--operator {
+  color: #abb2bf;
+}
+.syntax--keyword.syntax--other.syntax--special-method {
+  color: #61afef;
+}
+.syntax--keyword.syntax--other.syntax--unit {
+  color: #d19a66;
+}
+.syntax--storage {
+  color: #c678dd;
+}
+.syntax--storage.syntax--type.syntax--annotation,
+.syntax--storage.syntax--type.syntax--primitive {
+  color: #c678dd;
+}
+.syntax--storage.syntax--modifier.syntax--package,
+.syntax--storage.syntax--modifier.syntax--import {
+  color: #abb2bf;
+}
+.syntax--constant {
+  color: #d19a66;
+}
+.syntax--constant.syntax--variable {
+  color: #d19a66;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--numeric {
+  color: #d19a66;
+}
+.syntax--constant.syntax--other.syntax--color {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--other.syntax--symbol {
+  color: #56b6c2;
+}
+.syntax--variable {
+  color: #e06c75;
+}
+.syntax--variable.syntax--interpolation {
+  color: #be5046;
+}
+.syntax--variable.syntax--parameter {
+  color: #abb2bf;
+}
+.syntax--string {
+  color: #98c379;
+}
+.syntax--string.syntax--regexp {
+  color: #56b6c2;
+}
+.syntax--string.syntax--regexp .syntax--source.syntax--ruby.syntax--embedded {
+  color: #e5c07b;
+}
+.syntax--string.syntax--other.syntax--link {
+  color: #e06c75;
+}
+.syntax--punctuation.syntax--definition.syntax--comment {
+  color: #5c6370;
+}
+.syntax--punctuation.syntax--definition.syntax--method-parameters,
+.syntax--punctuation.syntax--definition.syntax--function-parameters,
+.syntax--punctuation.syntax--definition.syntax--parameters,
+.syntax--punctuation.syntax--definition.syntax--separator,
+.syntax--punctuation.syntax--definition.syntax--seperator,
+.syntax--punctuation.syntax--definition.syntax--array {
+  color: #abb2bf;
+}
+.syntax--punctuation.syntax--definition.syntax--heading,
+.syntax--punctuation.syntax--definition.syntax--identity {
+  color: #61afef;
+}
+.syntax--punctuation.syntax--definition.syntax--bold {
+  color: #e5c07b;
+  font-weight: bold;
+}
+.syntax--punctuation.syntax--definition.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #be5046;
+}
+.syntax--punctuation.syntax--section.syntax--method,
+.syntax--punctuation.syntax--section.syntax--class,
+.syntax--punctuation.syntax--section.syntax--inner-class {
+  color: #abb2bf;
+}
+.syntax--support.syntax--class {
+  color: #e5c07b;
+}
+.syntax--support.syntax--type {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function.syntax--any-method {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--function {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--class,
+.syntax--entity.syntax--name.syntax--type.syntax--class {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #e06c75;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #d19a66;
+}
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id {
+  color: #61afef;
+}
+.syntax--meta.syntax--class {
+  color: #e5c07b;
+}
+.syntax--meta.syntax--class.syntax--body {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--method-call,
+.syntax--meta.syntax--method {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--definition.syntax--variable {
+  color: #e06c75;
+}
+.syntax--meta.syntax--link {
+  color: #d19a66;
+}
+.syntax--meta.syntax--require {
+  color: #61afef;
+}
+.syntax--meta.syntax--selector {
+  color: #c678dd;
+}
+.syntax--meta.syntax--separator {
+  background-color: #373b41;
+  color: #abb2bf;
+}
+.syntax--meta.syntax--tag {
+  color: #abb2bf;
+}
+.syntax--underline {
+  text-decoration: underline;
+}
+.syntax--none {
+  color: #abb2bf;
+}
+.syntax--invalid.syntax--deprecated {
+  color: #523d14 !important;
+  background-color: #e0c285 !important;
+}
+.syntax--invalid.syntax--illegal {
+  color: #ffffff !important;
+  background-color: #e05252 !important;
+}
+.syntax--markup.syntax--bold {
+  color: #d19a66;
+  font-weight: bold;
+}
+.syntax--markup.syntax--changed {
+  color: #c678dd;
+}
+.syntax--markup.syntax--deleted {
+  color: #e06c75;
+}
+.syntax--markup.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--markup.syntax--heading {
+  color: #e06c75;
+}
+.syntax--markup.syntax--heading .syntax--punctuation.syntax--definition.syntax--heading {
+  color: #61afef;
+}
+.syntax--markup.syntax--link {
+  color: #56b6c2;
+}
+.syntax--markup.syntax--inserted {
+  color: #98c379;
+}
+.syntax--markup.syntax--quote {
+  color: #d19a66;
+}
+.syntax--markup.syntax--raw {
+  color: #98c379;
+}
+.syntax--source.syntax--c .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cpp .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cs .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--css .syntax--property-name,
+.syntax--source.syntax--css .syntax--property-value {
+  color: #828997;
+}
+.syntax--source.syntax--css .syntax--property-name.syntax--support,
+.syntax--source.syntax--css .syntax--property-value.syntax--support {
+  color: #abb2bf;
+}
+.syntax--source.syntax--gfm .syntax--markup {
+  -webkit-font-smoothing: auto;
+}
+.syntax--source.syntax--gfm .syntax--link .syntax--entity {
+  color: #61afef;
+}
+.syntax--source.syntax--go .syntax--storage.syntax--type.syntax--string {
+  color: #c678dd;
+}
+.syntax--source.syntax--ini .syntax--keyword.syntax--other.syntax--definition.syntax--ini {
+  color: #e06c75;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--modifier.syntax--import {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--type {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--keyword.syntax--operator.syntax--instanceof {
+  color: #c678dd;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair {
+  color: #e06c75;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair > .syntax--punctuation {
+  color: #abb2bf;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator {
+  color: #56b6c2;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--delete,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--in,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--of,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--instanceof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--new,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--typeof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--void {
+  color: #c678dd;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation.syntax--string {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation {
+  color: #98c379;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--constant.syntax--language.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--constant.syntax--language.syntax--json {
+  color: #56b6c2;
+}
+.syntax--source.syntax--ruby .syntax--constant.syntax--other.syntax--symbol > .syntax--punctuation {
+  color: inherit;
+}
+.syntax--source.syntax--python .syntax--keyword.syntax--operator.syntax--logical.syntax--python {
+  color: #c678dd;
+}
+.syntax--source.syntax--python .syntax--variable.syntax--parameter {
+  color: #d19a66;
+}
+</style>
+  </head>
+  <body class='markdown-preview' data-use-github-style><p>Title: NLP 101: Text Mining on J K Rowling&#39;s Commencement Speech
+Slug: nlp101
+Date: 2017-03-025 16:54
+Category: posts
+Tags: python, nlp
+Author: Gaurav Shahane
+Summary: Step by step guide for Natural Language Processing with Python</p>
+<p>This is a tutorial for the basic concepts in Natural Language Processing using NLTK library for Python. The code contains code for HTML Parsing, Sentence and Word Tokinizing, Stopwords Removal, Stemming, Lemmatizing, and Frequency Distribution analysls.</p>
+<p>We will first scrape a web page.</p>
+<pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--import syntax--python"><span>import</span></span><span>&nbsp;</span><span>nltk</span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--import syntax--from syntax--python"><span>from</span></span><span>&nbsp;</span><span>bs4</span><span>&nbsp;</span><span class="syntax--keyword syntax--control syntax--import syntax--python"><span>import</span></span><span>&nbsp;</span><span>BeautifulSoup</span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--import syntax--from syntax--python"><span>from</span></span><span>&nbsp;</span><span>nltk</span><span>&nbsp;</span><span class="syntax--keyword syntax--control syntax--import syntax--python"><span>import</span></span><span>&nbsp;</span><span>FreqDist</span></span></div><div class="line"><span class="syntax--source syntax--python"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>reading&nbsp;html&nbsp;web&nbsp;page</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--import syntax--python"><span>import</span></span><span>&nbsp;</span><span>urllib</span><span>.</span><span>request</span><span>&nbsp;</span><span class="syntax--keyword syntax--other syntax--python"><span>as</span></span><span>&nbsp;</span><span>urlreq</span></span></div><div class="line"><span class="syntax--source syntax--python"><span>url</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--string syntax--quoted syntax--double syntax--single-line syntax--python"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--python"><span>&quot;</span></span><span class="syntax--markup syntax--underline syntax--link syntax--http syntax--hyperlink"><span>http://news.harvard.edu/gazette/story/2008/06/text-of-j-k-rowling-speech/</span></span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--python"><span>&quot;</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>urlreq</span><span>.</span><span>urlopen</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span>url</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span><span>.</span><span class="syntax--meta syntax--function-call syntax--python"><span>r</span><span>ead</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span>text</span><span>)</span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>&lt;!--&nbsp;start&nbsp;of&nbsp;Youtube&nbsp;Player&nbsp;--&gt;\n\t\t\t\t\t&lt;iframe\ntitle=&quot;Video&nbsp;player&quot;&nbsp;width=&quot;960&quot;&nbsp;height=&quot;560&quot;&nbsp;src=&quot;</span><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://www.youtube.com/embed/UibfDUPJAEU?modestbranding=1&amp;amp;title=&amp;amp;autohide=1&amp;amp;wmode=opaque&amp;amp;rel=0&amp;amp;enablejsapi=1</span></span><span>&quot;&nbsp;frameborder=&quot;0&quot;&nbsp;allowfullscreen&gt;&lt;/iframe&gt;&lt;embed\nitemprop=&quot;embedURL&quot;&nbsp;type=&quot;application/x-shockwave-flash&quot;&nbsp;src=&quot;</span><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://www.youtube-nocookie.com/v/UibfDUPJAEU?rel=1&amp;amp;showinfo=0&amp;amp;wmode=opaque&amp;amp;rel=0</span></span><span>&quot;&nbsp;style=&quot;display:none;height:1px!important;&quot;&gt;&lt;/embed&gt;&lt;noframes&gt;&lt;a\nhref=&quot;</span><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://www.youtube.com/watch?v=UibfDUPJAEU</span></span><span>&quot;&nbsp;rel=&quot;nofollow&quot;&nbsp;target=&quot;_blank&quot;&gt;&lt;img\nsrc=&quot;</span><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://img.youtube.com/vi/UibfDUPJAEU/0.jpg</span></span><span>&quot;&nbsp;alt=&quot;0&quot;&nbsp;&nbsp;title=&quot;How&nbsp;To&nbsp;Choose&nbsp;The&nbsp;Correct&nbsp;Channel&nbsp;Type&nbsp;For&nbsp;Your&nbsp;Video&nbsp;Content&nbsp;&quot;&nbsp;/&gt;&lt;/a&gt;&lt;/noframes&gt;\n\t\t\t\t\t&lt;!--&nbsp;end&nbsp;of&nbsp;Youtube&nbsp;Player&nbsp;--&gt;\n\t\t\t\t\t\n\t&lt;/div&gt;&lt;!--/.embed-container--&gt;\n\t\n\t&lt;/div&gt;&lt;!--/.video_embed--&gt;\n\t\n&lt;p&gt;Delivering&nbsp;a&nbsp;commencement&nbsp;address&nbsp;is&nbsp;a&nbsp;great&nbsp;responsibility;&nbsp;or&nbsp;so&nbsp;I&nbsp;thought&nbsp;until&nbsp;I&nbsp;cast&nbsp;my&nbsp;mind&nbsp;back&nbsp;to&nbsp;my&nbsp;own&nbsp;graduation.&nbsp;The&nbsp;commencement&nbsp;speaker&nbsp;that&nbsp;day&nbsp;was&nbsp;the&nbsp;distinguished&nbsp;British&nbsp;philosopher&nbsp;Baroness&nbsp;Mary&nbsp;Warnock.&nbsp;Reflecting&nbsp;on&nbsp;her&nbsp;speech&nbsp;has&nbsp;helped&nbsp;me&nbsp;enormously&nbsp;in&nbsp;writing&nbsp;this&nbsp;one,&nbsp;because&nbsp;it&nbsp;turns&nbsp;out&nbsp;that&nbsp;I&nbsp;can\xe2\x80\x99t&nbsp;remember&nbsp;a&nbsp;single&nbsp;word&nbsp;she&nbsp;said.&nbsp;This&nbsp;liberating&nbsp;discovery&nbsp;enables&nbsp;me&nbsp;to&nbsp;proceed&nbsp;without&nbsp;any&nbsp;fear&nbsp;that&nbsp;I&nbsp;might&nbsp;inadvertently&nbsp;influence&nbsp;you&nbsp;to&nbsp;abandon&nbsp;promising&nbsp;careers&nbsp;in&nbsp;business,&nbsp;the&nbsp;law&nbsp;or&nbsp;politics&nbsp;for&nbsp;the&nbsp;giddy&nbsp;delights&nbsp;of&nbsp;becoming&nbsp;a&nbsp;gay&nbsp;wizard.&lt;/p&gt;\n&lt;p&gt;You&nbsp;see?&nbsp;If&nbsp;all&nbsp;you&nbsp;remember&nbsp;in&nbsp;years&nbsp;to&nbsp;come&nbsp;is&nbsp;the&nbsp;&#39;</span></span></span></div></pre><p>This gives us the HTML code of a web page. In order to extract the text areas, we can use BeautifulSoup package that does web scraping. We can use a &#39;for&#39; loop and get rid of the HTML tags and JavaScript to get unstructured raw text.</p>
+<pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>html&nbsp;Parsing&nbsp;using&nbsp;BeautifulSoup</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text_soup</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>BeautifulSoup</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span>text</span><span>,&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--single-line syntax--python"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--python"><span>&#39;</span></span><span>html.parser</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--python"><span>&#39;</span></span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--repeat syntax--python"><span>for</span></span><span>&nbsp;</span><span>script</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--logical syntax--python"><span>in</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>text_soup</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span class="syntax--meta syntax--structure syntax--list syntax--python"><span class="syntax--punctuation syntax--definition syntax--list syntax--begin syntax--python"><span>[</span></span><span class="syntax--meta syntax--structure syntax--list syntax--item syntax--python"><span class="syntax--string syntax--quoted syntax--double syntax--single-line syntax--python"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--python"><span>&quot;</span></span><span>script</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--python"><span>&quot;</span></span></span></span><span class="syntax--punctuation syntax--separator syntax--list syntax--python"><span>,</span></span><span>&nbsp;</span><span class="syntax--meta syntax--structure syntax--list syntax--item syntax--python"><span class="syntax--string syntax--quoted syntax--double syntax--single-line syntax--python"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--python"><span>&quot;</span></span><span>style</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--python"><span>&quot;</span></span></span></span><span class="syntax--punctuation syntax--definition syntax--list syntax--end syntax--python"><span>]</span></span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span><span>:</span></span></div><div class="line"><span class="syntax--source syntax--python"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>script</span><span>.</span><span>extract</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span>(</span><span class="syntax--meta syntax--function-call syntax--python"><span>text_soup</span><span>.</span><span>body</span><span>.</span><span>get_text</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span><span>)</span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span>text</span><span>)</span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>Skip&nbsp;to&nbsp;main&nbsp;content</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>Menu</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>Menu</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>Home</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>Search&nbsp;for:</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>By&nbsp;J.K.&nbsp;Rowling,&nbsp;Copyright&nbsp;J.K.&nbsp;Rowling&nbsp;</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>Email</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>Twitter</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>Facebook</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>Text&nbsp;as&nbsp;delivered.</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>President&nbsp;Faust,&nbsp;members&nbsp;of&nbsp;the&nbsp;Harvard&nbsp;Corporation&nbsp;and&nbsp;the&nbsp;Board&nbsp;of&nbsp;Overseers,&nbsp;members&nbsp;of&nbsp;the&nbsp;faculty,&nbsp;proud&nbsp;parents,&nbsp;and,&nbsp;above&nbsp;all,&nbsp;graduates.</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>The&nbsp;first&nbsp;thing&nbsp;I&nbsp;would&nbsp;like&nbsp;to&nbsp;say&nbsp;is&nbsp;‘thank&nbsp;you.’&nbsp;Not&nbsp;only&nbsp;has&nbsp;Harvard&nbsp;given&nbsp;me&nbsp;an&nbsp;extraordinary&nbsp;honour,&nbsp;but&nbsp;the&nbsp;weeks&nbsp;of&nbsp;fear&nbsp;and&nbsp;nausea&nbsp;I&nbsp;have&nbsp;endured&nbsp;at&nbsp;the&nbsp;thought&nbsp;of&nbsp;giving&nbsp;this&nbsp;commencement&nbsp;address&nbsp;have&nbsp;made&nbsp;me&nbsp;lose&nbsp;weight.&nbsp;A&nbsp;win-win&nbsp;situation!&nbsp;Now&nbsp;all&nbsp;I&nbsp;have&nbsp;to&nbsp;do&nbsp;is&nbsp;take&nbsp;deep&nbsp;breaths,&nbsp;squint&nbsp;at&nbsp;the&nbsp;red&nbsp;banners&nbsp;and&nbsp;convince&nbsp;myself&nbsp;that&nbsp;I&nbsp;am&nbsp;at&nbsp;the&nbsp;world’s&nbsp;largest&nbsp;Gryffindor&nbsp;reunion.</span></span></span></div></pre><p>Now, we can start breaking down the text into sentences and words to analyze it. Breaking up the raw text obtained from the web page is called Sentence Tokenizing. NLTK provides a variety of Sentence Tokenizers. We will use the basic one.</p>
+<p>For convenience, we will select only a few sentences from the text and print them after every step we perform below.</p>
+<pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>sentence&nbsp;tokenizing</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>text</span><span>.</span><span>replace</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span class="syntax--string syntax--quoted syntax--double syntax--single-line syntax--python"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--python"><span>&quot;</span></span><span class="syntax--constant syntax--character syntax--escape syntax--linefeed syntax--python"><span>\n</span></span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--python"><span>&quot;</span></span></span><span>,&nbsp;</span><span class="syntax--string syntax--quoted syntax--double syntax--single-line syntax--python"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--python"><span>&quot;</span></span><span>&nbsp;</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--python"><span>&quot;</span></span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span><span>&nbsp;</span><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>Remove&nbsp;new&nbsp;lines&nbsp;denoted&nbsp;by&nbsp;&#39;\n&#39;</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text_sent</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>nltk</span><span>.</span><span>tokenize</span><span>.</span><span>sent_tokenize</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span>text</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span class="syntax--meta syntax--item-access syntax--python"><span>text_sent</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>[</span></span><span class="syntax--meta syntax--item-access syntax--arguments syntax--python"><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>50</span></span><span>:</span><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>55</span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>]</span></span></span><span>)</span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>[&#39;So&nbsp;why&nbsp;do&nbsp;I&nbsp;talk&nbsp;about&nbsp;the&nbsp;benefits&nbsp;of&nbsp;failure?&#39;,&nbsp;&#39;Simply&nbsp;because&nbsp;failure&nbsp;meant&nbsp;a&nbsp;stripping&nbsp;away&nbsp;of&nbsp;the&nbsp;inessential.&#39;,&nbsp;&#39;I&nbsp;stopped&nbsp;pretending&nbsp;to&nbsp;myself&nbsp;that&nbsp;I&nbsp;was&nbsp;anything&nbsp;other&nbsp;than&nbsp;what&nbsp;I&nbsp;was,&nbsp;and&nbsp;began&nbsp;to&nbsp;direct&nbsp;all&nbsp;my&nbsp;energy&nbsp;into&nbsp;finishing&nbsp;the&nbsp;only&nbsp;work&nbsp;that&nbsp;mattered&nbsp;to&nbsp;me.&#39;,&nbsp;&#39;Had&nbsp;I&nbsp;really&nbsp;succeeded&nbsp;at&nbsp;anything&nbsp;else,&nbsp;I&nbsp;might&nbsp;never&nbsp;have&nbsp;found&nbsp;the&nbsp;determination&nbsp;to&nbsp;succeed&nbsp;in&nbsp;the&nbsp;one&nbsp;arena&nbsp;I&nbsp;believed&nbsp;I&nbsp;truly&nbsp;belonged.&#39;,&nbsp;&#39;I&nbsp;was&nbsp;set&nbsp;free,&nbsp;because&nbsp;my&nbsp;greatest&nbsp;fear&nbsp;had&nbsp;been&nbsp;realised,&nbsp;and&nbsp;I&nbsp;was&nbsp;still&nbsp;alive,&nbsp;and&nbsp;I&nbsp;still&nbsp;had&nbsp;a&nbsp;daughter&nbsp;whom&nbsp;I&nbsp;adored,&nbsp;and&nbsp;I&nbsp;had&nbsp;an&nbsp;old&nbsp;typewriter&nbsp;and&nbsp;a&nbsp;big&nbsp;idea.&#39;]</span></span></span></div></pre><p>We can see the sentences have been split apart and added to a Python list.<br>
+Now, we use Word Tokenizer to split the sentences further into individual words.</p>
+<pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>word&nbsp;tokenize</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text_word</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--structure syntax--list syntax--python"><span class="syntax--punctuation syntax--definition syntax--list syntax--begin syntax--python"><span>[</span></span><span class="syntax--punctuation syntax--definition syntax--list syntax--end syntax--python"><span>]</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--repeat syntax--python"><span>for</span></span><span>&nbsp;</span><span>sent</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--logical syntax--python"><span>in</span></span><span>&nbsp;</span><span>text_sent</span><span>:</span></span></div><div class="line"><span class="syntax--source syntax--python"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span>text_word</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span>text_word</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--arithmetic syntax--python"><span>+</span></span><span>&nbsp;</span><span>(</span><span class="syntax--meta syntax--function-call syntax--python"><span>nltk</span><span>.</span><span>tokenize</span><span>.</span><span>wordpunct_tokenize</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span>sent</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span><span>)</span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span class="syntax--meta syntax--item-access syntax--python"><span>text_word</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>[</span></span><span class="syntax--meta syntax--item-access syntax--arguments syntax--python"><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>1537</span></span><span>:</span><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>1657</span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>]</span></span></span><span>)</span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>[&#39;So&#39;,&nbsp;&#39;why&#39;,&nbsp;&#39;do&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;talk&#39;,&nbsp;&#39;about&#39;,&nbsp;&#39;the&#39;,&nbsp;&#39;benefits&#39;,&nbsp;&#39;of&#39;,&nbsp;&#39;failure&#39;,&nbsp;&#39;?&#39;,&nbsp;&#39;Simply&#39;,&nbsp;&#39;because&#39;,&nbsp;&#39;failure&#39;,&nbsp;&#39;meant&#39;,&nbsp;&#39;a&#39;,&nbsp;&#39;stripping&#39;,&nbsp;&#39;away&#39;,&nbsp;&#39;of&#39;,&nbsp;&#39;the&#39;,&nbsp;&#39;inessential&#39;,&nbsp;&#39;.&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;stopped&#39;,&nbsp;&#39;pretending&#39;,&nbsp;&#39;to&#39;,&nbsp;&#39;myself&#39;,&nbsp;&#39;that&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;was&#39;,&nbsp;&#39;anything&#39;,&nbsp;&#39;other&#39;,&nbsp;&#39;than&#39;,&nbsp;&#39;what&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;was&#39;,&nbsp;&#39;,&#39;,&nbsp;&#39;and&#39;,&nbsp;&#39;began&#39;,&nbsp;&#39;to&#39;,&nbsp;&#39;direct&#39;,&nbsp;&#39;all&#39;,&nbsp;&#39;my&#39;,&nbsp;&#39;energy&#39;,&nbsp;&#39;into&#39;,&nbsp;&#39;finishing&#39;,&nbsp;&#39;the&#39;,&nbsp;&#39;only&#39;,&nbsp;&#39;work&#39;,&nbsp;&#39;that&#39;,&nbsp;&#39;mattered&#39;,&nbsp;&#39;to&#39;,&nbsp;&#39;me&#39;,&nbsp;&#39;.&#39;,&nbsp;&#39;Had&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;really&#39;,&nbsp;&#39;succeeded&#39;,&nbsp;&#39;at&#39;,&nbsp;&#39;anything&#39;,&nbsp;&#39;else&#39;,&nbsp;&#39;,&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;might&#39;,&nbsp;&#39;never&#39;,&nbsp;&#39;have&#39;,&nbsp;&#39;found&#39;,&nbsp;&#39;the&#39;,&nbsp;&#39;determination&#39;,&nbsp;&#39;to&#39;,&nbsp;&#39;succeed&#39;,&nbsp;&#39;in&#39;,&nbsp;&#39;the&#39;,&nbsp;&#39;one&#39;,&nbsp;&#39;arena&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;believed&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;truly&#39;,&nbsp;&#39;belonged&#39;,&nbsp;&#39;.&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;was&#39;,&nbsp;&#39;set&#39;,&nbsp;&#39;free&#39;,&nbsp;&#39;,&#39;,&nbsp;&#39;because&#39;,&nbsp;&#39;my&#39;,&nbsp;&#39;greatest&#39;,&nbsp;&#39;fear&#39;,&nbsp;&#39;had&#39;,&nbsp;&#39;been&#39;,&nbsp;&#39;realised&#39;,&nbsp;&#39;,&#39;,&nbsp;&#39;and&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;was&#39;,&nbsp;&#39;still&#39;,&nbsp;&#39;alive&#39;,&nbsp;&#39;,&#39;,&nbsp;&#39;and&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;still&#39;,&nbsp;&#39;had&#39;,&nbsp;&#39;a&#39;,&nbsp;&#39;daughter&#39;,&nbsp;&#39;whom&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;adored&#39;,&nbsp;&#39;,&#39;,&nbsp;&#39;and&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;had&#39;,&nbsp;&#39;an&#39;,&nbsp;&#39;old&#39;,&nbsp;&#39;typewriter&#39;,&nbsp;&#39;and&#39;,&nbsp;&#39;a&#39;,&nbsp;&#39;big&#39;,&nbsp;&#39;idea&#39;]</span></span></span></div></pre><p>Now, we have all the words in a list. We can remove the punctuation marks to eliminate one of the sources of noise.</p>
+<pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>remove&nbsp;punctuation&nbsp;marks</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text_nopunct</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--structure syntax--list syntax--python"><span class="syntax--punctuation syntax--definition syntax--list syntax--begin syntax--python"><span>[</span></span><span class="syntax--meta syntax--structure syntax--list syntax--item syntax--python"><span>w</span><span>&nbsp;</span><span class="syntax--keyword syntax--control syntax--repeat syntax--python"><span>for</span></span><span>&nbsp;</span><span>w</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--logical syntax--python"><span>in</span></span><span>&nbsp;</span><span>text_word</span><span>&nbsp;</span><span class="syntax--keyword syntax--control syntax--conditional syntax--python"><span>if</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>w</span><span>.</span><span>isalnum</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span><span class="syntax--punctuation syntax--definition syntax--list syntax--end syntax--python"><span>]</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span class="syntax--meta syntax--item-access syntax--python"><span>text_nopunct</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>[</span></span><span class="syntax--meta syntax--item-access syntax--arguments syntax--python"><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>1339</span></span><span>:</span><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>1449</span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>]</span></span></span><span>)</span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>[&#39;So&#39;,&nbsp;&#39;why&#39;,&nbsp;&#39;do&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;talk&#39;,&nbsp;&#39;about&#39;,&nbsp;&#39;the&#39;,&nbsp;&#39;benefits&#39;,&nbsp;&#39;of&#39;,&nbsp;&#39;failure&#39;,&nbsp;&#39;Simply&#39;,&nbsp;&#39;because&#39;,&nbsp;&#39;failure&#39;,&nbsp;&#39;meant&#39;,&nbsp;&#39;a&#39;,&nbsp;&#39;stripping&#39;,&nbsp;&#39;away&#39;,&nbsp;&#39;of&#39;,&nbsp;&#39;the&#39;,&nbsp;&#39;inessential&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;stopped&#39;,&nbsp;&#39;pretending&#39;,&nbsp;&#39;to&#39;,&nbsp;&#39;myself&#39;,&nbsp;&#39;that&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;was&#39;,&nbsp;&#39;anything&#39;,&nbsp;&#39;other&#39;,&nbsp;&#39;than&#39;,&nbsp;&#39;what&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;was&#39;,&nbsp;&#39;and&#39;,&nbsp;&#39;began&#39;,&nbsp;&#39;to&#39;,&nbsp;&#39;direct&#39;,&nbsp;&#39;all&#39;,&nbsp;&#39;my&#39;,&nbsp;&#39;energy&#39;,&nbsp;&#39;into&#39;,&nbsp;&#39;finishing&#39;,&nbsp;&#39;the&#39;,&nbsp;&#39;only&#39;,&nbsp;&#39;work&#39;,&nbsp;&#39;that&#39;,&nbsp;&#39;mattered&#39;,&nbsp;&#39;to&#39;,&nbsp;&#39;me&#39;,&nbsp;&#39;Had&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;really&#39;,&nbsp;&#39;succeeded&#39;,&nbsp;&#39;at&#39;,&nbsp;&#39;anything&#39;,&nbsp;&#39;else&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;might&#39;,&nbsp;&#39;never&#39;,&nbsp;&#39;have&#39;,&nbsp;&#39;found&#39;,&nbsp;&#39;the&#39;,&nbsp;&#39;determination&#39;,&nbsp;&#39;to&#39;,&nbsp;&#39;succeed&#39;,&nbsp;&#39;in&#39;,&nbsp;&#39;the&#39;,&nbsp;&#39;one&#39;,&nbsp;&#39;arena&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;believed&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;truly&#39;,&nbsp;&#39;belonged&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;was&#39;,&nbsp;&#39;set&#39;,&nbsp;&#39;free&#39;,&nbsp;&#39;because&#39;,&nbsp;&#39;my&#39;,&nbsp;&#39;greatest&#39;,&nbsp;&#39;fear&#39;,&nbsp;&#39;had&#39;,&nbsp;&#39;been&#39;,&nbsp;&#39;realised&#39;,&nbsp;&#39;and&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;was&#39;,&nbsp;&#39;still&#39;,&nbsp;&#39;alive&#39;,&nbsp;&#39;and&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;still&#39;,&nbsp;&#39;had&#39;,&nbsp;&#39;a&#39;,&nbsp;&#39;daughter&#39;,&nbsp;&#39;whom&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;adored&#39;,&nbsp;&#39;and&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;had&#39;,&nbsp;&#39;an&#39;,&nbsp;&#39;old&#39;,&nbsp;&#39;typewriter&#39;,&nbsp;&#39;and&#39;,&nbsp;&#39;a&#39;,&nbsp;&#39;big&#39;,&nbsp;&#39;idea&#39;]</span></span></span></div></pre><p>In any language, there are some words that help in sentence formation but individually they don&#39;t mean much. For example, the words such as &#39;up&#39;, &#39;is&#39;, &#39;any&#39;, &#39;had&#39; and so on. They are called &#39;Stop Words&#39;, we can remove them to further reduce noise from the list of words. We can use Stopwords from NLTK library for the purpose, although we can use any list with the desired words that we want to eliminate from the list of words we have.</p>
+<pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>&nbsp;Stop&nbsp;Words&nbsp;Removal</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>stopwords</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>nltk</span><span>.</span><span>corpus</span><span>.</span><span>stopwords</span><span>.</span><span>words</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span class="syntax--string syntax--quoted syntax--single syntax--single-line syntax--python"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--python"><span>&#39;</span></span><span>english</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--python"><span>&#39;</span></span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text_wo_stopwords</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--structure syntax--list syntax--python"><span class="syntax--punctuation syntax--definition syntax--list syntax--begin syntax--python"><span>[</span></span><span class="syntax--meta syntax--structure syntax--list syntax--item syntax--python"><span>word</span><span>&nbsp;</span><span class="syntax--keyword syntax--control syntax--repeat syntax--python"><span>for</span></span><span>&nbsp;</span><span>word</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--logical syntax--python"><span>in</span></span><span>&nbsp;</span><span>text_nopunct</span><span>&nbsp;</span><span class="syntax--keyword syntax--control syntax--conditional syntax--python"><span>if</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--logical syntax--python"><span>not</span></span><span>&nbsp;</span><span>word</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--logical syntax--python"><span>in</span></span><span>&nbsp;</span><span>stopwords</span></span><span class="syntax--punctuation syntax--definition syntax--list syntax--end syntax--python"><span>]</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span class="syntax--meta syntax--item-access syntax--python"><span>text_wo_stopwords</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>[</span></span><span class="syntax--meta syntax--item-access syntax--arguments syntax--python"><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>785</span></span><span>:</span><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>846</span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>]</span></span></span><span>)</span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>[&#39;So&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;talk&#39;,&nbsp;&#39;benefits&#39;,&nbsp;&#39;failure&#39;,&nbsp;&#39;Simply&#39;,&nbsp;&#39;failure&#39;,&nbsp;&#39;meant&#39;,&nbsp;&#39;stripping&#39;,&nbsp;&#39;away&#39;,&nbsp;&#39;inessential&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;stopped&#39;,&nbsp;&#39;pretending&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;anything&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;began&#39;,&nbsp;&#39;direct&#39;,&nbsp;&#39;energy&#39;,&nbsp;&#39;finishing&#39;,&nbsp;&#39;work&#39;,&nbsp;&#39;mattered&#39;,&nbsp;&#39;Had&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;really&#39;,&nbsp;&#39;succeeded&#39;,&nbsp;&#39;anything&#39;,&nbsp;&#39;else&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;might&#39;,&nbsp;&#39;never&#39;,&nbsp;&#39;found&#39;,&nbsp;&#39;determination&#39;,&nbsp;&#39;succeed&#39;,&nbsp;&#39;one&#39;,&nbsp;&#39;arena&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;believed&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;truly&#39;,&nbsp;&#39;belonged&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;set&#39;,&nbsp;&#39;free&#39;,&nbsp;&#39;greatest&#39;,&nbsp;&#39;fear&#39;,&nbsp;&#39;realised&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;still&#39;,&nbsp;&#39;alive&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;still&#39;,&nbsp;&#39;daughter&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;adored&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;old&#39;,&nbsp;&#39;typewriter&#39;,&nbsp;&#39;big&#39;,&nbsp;&#39;idea&#39;]</span></span></span></div></pre><pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>&nbsp;Stemming</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--import syntax--from syntax--python"><span>from</span></span><span>&nbsp;</span><span>nltk</span><span>.</span><span>stem</span><span>&nbsp;</span><span class="syntax--keyword syntax--control syntax--import syntax--python"><span>import</span></span><span>&nbsp;</span><span>PorterStemmer</span></span></div><div class="line"><span class="syntax--source syntax--python"><span>porter</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>PorterStemmer</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text_stemmed</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--structure syntax--list syntax--python"><span class="syntax--punctuation syntax--definition syntax--list syntax--begin syntax--python"><span>[</span></span><span class="syntax--punctuation syntax--definition syntax--list syntax--end syntax--python"><span>]</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--repeat syntax--python"><span>for</span></span><span>&nbsp;</span><span>w</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--logical syntax--python"><span>in</span></span><span>&nbsp;</span><span>text_wo_stopwords</span><span>:</span></span></div><div class="line"><span class="syntax--source syntax--python"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>text_stemmed</span><span>.</span><span>append</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span class="syntax--meta syntax--function-call syntax--python"><span>porter</span><span>.</span><span>stem</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span>w</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span class="syntax--meta syntax--item-access syntax--python"><span>text_stemmed</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>[</span></span><span class="syntax--meta syntax--item-access syntax--arguments syntax--python"><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>785</span></span><span>:</span><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>846</span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>]</span></span></span><span>)</span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>[&#39;So&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;talk&#39;,&nbsp;&#39;benefit&#39;,&nbsp;&#39;failur&#39;,&nbsp;&#39;Simpli&#39;,&nbsp;&#39;failur&#39;,&nbsp;&#39;meant&#39;,&nbsp;&#39;strip&#39;,&nbsp;&#39;away&#39;,&nbsp;&#39;inessenti&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;stop&#39;,&nbsp;&#39;pretend&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;anyth&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;began&#39;,&nbsp;&#39;direct&#39;,&nbsp;&#39;energi&#39;,&nbsp;&#39;finish&#39;,&nbsp;&#39;work&#39;,&nbsp;&#39;matter&#39;,&nbsp;&#39;Had&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;realli&#39;,&nbsp;&#39;succeed&#39;,&nbsp;&#39;anyth&#39;,&nbsp;&#39;els&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;might&#39;,&nbsp;&#39;never&#39;,&nbsp;&#39;found&#39;,&nbsp;&#39;determin&#39;,&nbsp;&#39;succeed&#39;,&nbsp;&#39;one&#39;,&nbsp;&#39;arena&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;believ&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;truli&#39;,&nbsp;&#39;belong&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;set&#39;,&nbsp;&#39;free&#39;,&nbsp;&#39;greatest&#39;,&nbsp;&#39;fear&#39;,&nbsp;&#39;realis&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;still&#39;,&nbsp;&#39;aliv&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;still&#39;,&nbsp;&#39;daughter&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;ador&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;old&#39;,&nbsp;&#39;typewrit&#39;,&nbsp;&#39;big&#39;,&nbsp;&#39;idea&#39;]</span></span></span></div></pre><pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>Lemmatizing</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--import syntax--from syntax--python"><span>from</span></span><span>&nbsp;</span><span>nltk</span><span>&nbsp;</span><span class="syntax--keyword syntax--control syntax--import syntax--python"><span>import</span></span><span>&nbsp;</span><span>WordNetLemmatizer</span></span></div><div class="line"><span class="syntax--source syntax--python"><span>wordnet</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>WordNetLemmatizer</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text_lemma</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--structure syntax--list syntax--python"><span class="syntax--punctuation syntax--definition syntax--list syntax--begin syntax--python"><span>[</span></span><span class="syntax--punctuation syntax--definition syntax--list syntax--end syntax--python"><span>]</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--repeat syntax--python"><span>for</span></span><span>&nbsp;</span><span>w</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--logical syntax--python"><span>in</span></span><span>&nbsp;</span><span>text_stemmed</span><span>:</span></span></div><div class="line"><span class="syntax--source syntax--python"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>text_lemma</span><span>.</span><span>append</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span class="syntax--meta syntax--function-call syntax--python"><span>wordnet</span><span>.</span><span>lemmatize</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span>w</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span class="syntax--meta syntax--item-access syntax--python"><span>text_lemma</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>[</span></span><span class="syntax--meta syntax--item-access syntax--arguments syntax--python"><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>785</span></span><span>:</span><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>846</span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>]</span></span></span><span>)</span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>[&#39;So&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;talk&#39;,&nbsp;&#39;benefit&#39;,&nbsp;&#39;failur&#39;,&nbsp;&#39;Simpli&#39;,&nbsp;&#39;failur&#39;,&nbsp;&#39;meant&#39;,&nbsp;&#39;strip&#39;,&nbsp;&#39;away&#39;,&nbsp;&#39;inessenti&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;stop&#39;,&nbsp;&#39;pretend&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;anyth&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;began&#39;,&nbsp;&#39;direct&#39;,&nbsp;&#39;energi&#39;,&nbsp;&#39;finish&#39;,&nbsp;&#39;work&#39;,&nbsp;&#39;matter&#39;,&nbsp;&#39;Had&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;realli&#39;,&nbsp;&#39;succeed&#39;,&nbsp;&#39;anyth&#39;,&nbsp;&#39;el&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;might&#39;,&nbsp;&#39;never&#39;,&nbsp;&#39;found&#39;,&nbsp;&#39;determin&#39;,&nbsp;&#39;succeed&#39;,&nbsp;&#39;one&#39;,&nbsp;&#39;arena&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;believ&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;truli&#39;,&nbsp;&#39;belong&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;set&#39;,&nbsp;&#39;free&#39;,&nbsp;&#39;greatest&#39;,&nbsp;&#39;fear&#39;,&nbsp;&#39;realis&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;still&#39;,&nbsp;&#39;aliv&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;still&#39;,&nbsp;&#39;daughter&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;ador&#39;,&nbsp;&#39;I&#39;,&nbsp;&#39;old&#39;,&nbsp;&#39;typewrit&#39;,&nbsp;&#39;big&#39;,&nbsp;&#39;idea&#39;]</span></span></span></div></pre><pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>frequency&nbsp;distribution&nbsp;of&nbsp;the&nbsp;words</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text_freq</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>FreqDist</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span>text_lemma</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span class="syntax--meta syntax--function-call syntax--python"><span>text_freq</span><span>.</span><span>most_common</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>50</span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span><span>)</span></span></div><div class="line"><span class="syntax--source syntax--python"><span>&nbsp;</span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control syntax--import syntax--python"><span>import</span></span><span>&nbsp;</span><span>matplotlib</span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--operator syntax--arithmetic syntax--python"><span>%</span></span><span>matplotlib</span><span>&nbsp;</span><span>inline</span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--meta syntax--function-call syntax--python"><span>text_freq</span><span>.</span><span>plot</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>50</span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>[(&#39;harvard&#39;,&nbsp;35),&nbsp;(&#39;live&#39;,&nbsp;17),&nbsp;(&#39;life&#39;,&nbsp;15),&nbsp;(&#39;never&#39;,&nbsp;15),&nbsp;(&#39;failur&#39;,&nbsp;14),&nbsp;(&#39;2017&#39;,&nbsp;14),&nbsp;(&#39;april&#39;,&nbsp;12),&nbsp;(&#39;peopl&#39;,&nbsp;12),&nbsp;(&#39;view&#39;,&nbsp;12),&nbsp;(&#39;world&#39;,&nbsp;11),&nbsp;(&#39;graduat&#39;,&nbsp;11),&nbsp;(&#39;day&#39;,&nbsp;10),&nbsp;(&#39;one&#39;,&nbsp;10),&nbsp;(&#39;might&#39;,&nbsp;10),&nbsp;(&#39;post&#39;,&nbsp;10),&nbsp;(&#39;editor&#39;,&nbsp;9),&nbsp;(&#39;experi&#39;,&nbsp;9),&nbsp;(&#39;would&#39;,&nbsp;9),&nbsp;(&#39;year&#39;,&nbsp;9),&nbsp;(&#39;parent&#39;,&nbsp;9),&nbsp;(&#39;pick&#39;,&nbsp;9),&nbsp;(&#39;imagin&#39;,&nbsp;9),&nbsp;(&#39;nation&#39;,&nbsp;8),&nbsp;(&#39;power&#39;,&nbsp;8),&nbsp;(&#39;staff&#39;,&nbsp;8),&nbsp;(&#39;time&#39;,&nbsp;8),&nbsp;(&#39;popular&#39;,&nbsp;8),&nbsp;(&#39;commun&#39;,&nbsp;7),&nbsp;(&#39;colleg&#39;,&nbsp;7),&nbsp;(&#39;person&#39;,&nbsp;7),&nbsp;(&#39;studi&#39;,&nbsp;7),&nbsp;(&#39;fear&#39;,&nbsp;7),&nbsp;(&#39;think&#39;,&nbsp;6),&nbsp;(&#39;photograph&#39;,&nbsp;6),&nbsp;(&#39;without&#39;,&nbsp;6),&nbsp;(&#39;human&#39;,&nbsp;6),&nbsp;(&#39;old&#39;,&nbsp;6),&nbsp;(&#39;well&#39;,&nbsp;6),&nbsp;(&#39;rememb&#39;,&nbsp;6),&nbsp;(&#39;art&#39;,&nbsp;6),&nbsp;(&#39;k&#39;,&nbsp;6),&nbsp;(&#39;come&#39;,&nbsp;6),&nbsp;(&#39;know&#39;,&nbsp;6),&nbsp;(&#39;way&#39;,&nbsp;6),&nbsp;(&#39;j&#39;,&nbsp;6),&nbsp;(&#39;campu&#39;,&nbsp;6),&nbsp;(&#39;much&#39;,&nbsp;6),&nbsp;(&#39;learn&#39;,&nbsp;6),&nbsp;(&#39;rowl&#39;,&nbsp;6),&nbsp;(&#39;thing&#39;,&nbsp;5)]</span></span></span></div></pre><p><img src="C:\Users\gaura\Documents\MIM - UMCP\blog\content\output_15_1.png" alt="png"></p>
+<pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>POS&nbsp;Tagging</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text_tagged</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>nltk</span><span>.</span><span>pos_tag</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span>text_word</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span class="syntax--meta syntax--item-access syntax--python"><span>text_tagged</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>[</span></span><span class="syntax--meta syntax--item-access syntax--arguments syntax--python"><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>1537</span></span><span>:</span><span class="syntax--constant syntax--numeric syntax--integer syntax--decimal syntax--python"><span>1657</span></span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>]</span></span></span><span>)</span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>[(&#39;So&#39;,&nbsp;&#39;RB&#39;),&nbsp;(&#39;why&#39;,&nbsp;&#39;WRB&#39;),&nbsp;(&#39;do&#39;,&nbsp;&#39;VBP&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;talk&#39;,&nbsp;&#39;VB&#39;),&nbsp;(&#39;about&#39;,&nbsp;&#39;IN&#39;),&nbsp;(&#39;the&#39;,&nbsp;&#39;DT&#39;),&nbsp;(&#39;benefits&#39;,&nbsp;&#39;NNS&#39;),&nbsp;(&#39;of&#39;,&nbsp;&#39;IN&#39;),&nbsp;(&#39;failure&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;?&#39;,&nbsp;&#39;.&#39;),&nbsp;(&#39;Simply&#39;,&nbsp;&#39;NNP&#39;),&nbsp;(&#39;because&#39;,&nbsp;&#39;IN&#39;),&nbsp;(&#39;failure&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;meant&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;a&#39;,&nbsp;&#39;DT&#39;),&nbsp;(&#39;stripping&#39;,&nbsp;&#39;VBG&#39;),&nbsp;(&#39;away&#39;,&nbsp;&#39;RB&#39;),&nbsp;(&#39;of&#39;,&nbsp;&#39;IN&#39;),&nbsp;(&#39;the&#39;,&nbsp;&#39;DT&#39;),&nbsp;(&#39;inessential&#39;,&nbsp;&#39;JJ&#39;),&nbsp;(&#39;.&#39;,&nbsp;&#39;.&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;stopped&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;pretending&#39;,&nbsp;&#39;VBG&#39;),&nbsp;(&#39;to&#39;,&nbsp;&#39;TO&#39;),&nbsp;(&#39;myself&#39;,&nbsp;&#39;VB&#39;),&nbsp;(&#39;that&#39;,&nbsp;&#39;IN&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;was&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;anything&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;other&#39;,&nbsp;&#39;JJ&#39;),&nbsp;(&#39;than&#39;,&nbsp;&#39;IN&#39;),&nbsp;(&#39;what&#39;,&nbsp;&#39;WP&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;was&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;,&#39;,&nbsp;&#39;,&#39;),&nbsp;(&#39;and&#39;,&nbsp;&#39;CC&#39;),&nbsp;(&#39;began&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;to&#39;,&nbsp;&#39;TO&#39;),&nbsp;(&#39;direct&#39;,&nbsp;&#39;VB&#39;),&nbsp;(&#39;all&#39;,&nbsp;&#39;DT&#39;),&nbsp;(&#39;my&#39;,&nbsp;&#39;PRP$&#39;),&nbsp;(&#39;energy&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;into&#39;,&nbsp;&#39;IN&#39;),&nbsp;(&#39;finishing&#39;,&nbsp;&#39;VBG&#39;),&nbsp;(&#39;the&#39;,&nbsp;&#39;DT&#39;),&nbsp;(&#39;only&#39;,&nbsp;&#39;JJ&#39;),&nbsp;(&#39;work&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;that&#39;,&nbsp;&#39;WDT&#39;),&nbsp;(&#39;mattered&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;to&#39;,&nbsp;&#39;TO&#39;),&nbsp;(&#39;me&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;.&#39;,&nbsp;&#39;.&#39;),&nbsp;(&#39;Had&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;really&#39;,&nbsp;&#39;RB&#39;),&nbsp;(&#39;succeeded&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;at&#39;,&nbsp;&#39;IN&#39;),&nbsp;(&#39;anything&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;else&#39;,&nbsp;&#39;RB&#39;),&nbsp;(&#39;,&#39;,&nbsp;&#39;,&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;might&#39;,&nbsp;&#39;MD&#39;),&nbsp;(&#39;never&#39;,&nbsp;&#39;RB&#39;),&nbsp;(&#39;have&#39;,&nbsp;&#39;VB&#39;),&nbsp;(&#39;found&#39;,&nbsp;&#39;VBN&#39;),&nbsp;(&#39;the&#39;,&nbsp;&#39;DT&#39;),&nbsp;(&#39;determination&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;to&#39;,&nbsp;&#39;TO&#39;),&nbsp;(&#39;succeed&#39;,&nbsp;&#39;VB&#39;),&nbsp;(&#39;in&#39;,&nbsp;&#39;IN&#39;),&nbsp;(&#39;the&#39;,&nbsp;&#39;DT&#39;),&nbsp;(&#39;one&#39;,&nbsp;&#39;CD&#39;),&nbsp;(&#39;arena&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;believed&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;truly&#39;,&nbsp;&#39;RB&#39;),&nbsp;(&#39;belonged&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;.&#39;,&nbsp;&#39;.&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;was&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;set&#39;,&nbsp;&#39;VBN&#39;),&nbsp;(&#39;free&#39;,&nbsp;&#39;JJ&#39;),&nbsp;(&#39;,&#39;,&nbsp;&#39;,&#39;),&nbsp;(&#39;because&#39;,&nbsp;&#39;IN&#39;),&nbsp;(&#39;my&#39;,&nbsp;&#39;PRP$&#39;),&nbsp;(&#39;greatest&#39;,&nbsp;&#39;JJS&#39;),&nbsp;(&#39;fear&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;had&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;been&#39;,&nbsp;&#39;VBN&#39;),&nbsp;(&#39;realised&#39;,&nbsp;&#39;VBN&#39;),&nbsp;(&#39;,&#39;,&nbsp;&#39;,&#39;),&nbsp;(&#39;and&#39;,&nbsp;&#39;CC&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;was&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;still&#39;,&nbsp;&#39;RB&#39;),&nbsp;(&#39;alive&#39;,&nbsp;&#39;JJ&#39;),&nbsp;(&#39;,&#39;,&nbsp;&#39;,&#39;),&nbsp;(&#39;and&#39;,&nbsp;&#39;CC&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;still&#39;,&nbsp;&#39;RB&#39;),&nbsp;(&#39;had&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;a&#39;,&nbsp;&#39;DT&#39;),&nbsp;(&#39;daughter&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;whom&#39;,&nbsp;&#39;WP&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;adored&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;,&#39;,&nbsp;&#39;,&#39;),&nbsp;(&#39;and&#39;,&nbsp;&#39;CC&#39;),&nbsp;(&#39;I&#39;,&nbsp;&#39;PRP&#39;),&nbsp;(&#39;had&#39;,&nbsp;&#39;VBD&#39;),&nbsp;(&#39;an&#39;,&nbsp;&#39;DT&#39;),&nbsp;(&#39;old&#39;,&nbsp;&#39;JJ&#39;),&nbsp;(&#39;typewriter&#39;,&nbsp;&#39;NN&#39;),&nbsp;(&#39;and&#39;,&nbsp;&#39;CC&#39;),&nbsp;(&#39;a&#39;,&nbsp;&#39;DT&#39;),&nbsp;(&#39;big&#39;,&nbsp;&#39;JJ&#39;),&nbsp;(&#39;idea&#39;,&nbsp;&#39;NN&#39;)]</span></span></span></div></pre><pre class="editor-colors lang-python"><div class="line"><span class="syntax--source syntax--python"><span class="syntax--comment syntax--line syntax--number-sign syntax--python"><span class="syntax--punctuation syntax--definition syntax--comment syntax--python"><span>#</span></span><span>Chunking</span><span>&nbsp;</span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span>text_chunks</span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--assignment syntax--python"><span>=</span></span><span>&nbsp;</span><span class="syntax--meta syntax--function-call syntax--python"><span>nltk</span><span>.</span><span>ne_chunk</span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--begin syntax--python"><span>(</span></span><span class="syntax--meta syntax--function-call syntax--arguments syntax--python"><span>text_tagged</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--end syntax--python"><span>)</span></span></span></span></div><div class="line"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other syntax--python"><span>print</span></span><span>(</span><span class="syntax--string syntax--quoted syntax--double syntax--single-line syntax--python"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--python"><span>&quot;</span></span><span>Text&nbsp;chunks&nbsp;---&gt;</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--python"><span>&quot;</span></span></span><span>,&nbsp;</span><span>text_chunks</span><span>)</span></span></div></pre>
+<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>Text&nbsp;chunks&nbsp;---&gt;&nbsp;(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>The/DT</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>commencement/NN</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;speaker/NN</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;that/IN</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;day/NN</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;was/VBD</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;the/DT</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;distinguished/JJ</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;(GPE&nbsp;British/JJ)</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;philosopher/NN</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;(PERSON&nbsp;Baroness/NNP&nbsp;Mary/NNP&nbsp;Warnock/NNP)</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;./.</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;Reflecting/VBG</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;on/IN</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;her/PRP$</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;speech/NN</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;has/VBZ</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;helped/VBN</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;me/PRP</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;enormously/RB</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;in/IN</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;writing/VBG</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;this/DT</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;one/CD</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;)</span></span></span></div></pre></body>
+</html>
