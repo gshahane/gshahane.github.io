@@ -6,7 +6,7 @@ keywords: Visualization, R, Tableau
 tags: [Visualization, R, Tableau]
 comments: true
 ---
-
+![New York Green Taxi](http://www.nyc.gov/html/tlc/images/features/fi_passenger_information_shl_passenger.jpg)
 <p>New York loves its taxicabs.<br><br>There are over 20,000 Yellow and Green taxicabs in New York. The additional e-hail services such as Uber and Lyft are bringing a lot more number of taxis in the New York region. Prior to 2013, most of the outer boroughs of New York were underserved by yellow cabs and were dominated by unlicensed drivers. <br><br>Introduced in 2013, Green taxis were meant to serve the outer boroughs(Bronx, Queens, Brooklyn, Staten Island and Manhattan above the 110th Street) to tackle the illegal taxi problem. Almost 3 years since its launch, as per various news articles, Green taxi is not doing that well. It would be interesting to know how the Greens are performing based on Taxi Trip Records in New York.</p>
 
 <p>Let’s take a dive into their performance:</p>
@@ -57,3 +57,4 @@ Creation of Visualizations: <b>Tableau, R, Adobe Photoshop</b>
 <h2>References:</h2>
 - (Reuben Fischer-Baum, Sep 22, 2015) Green Taxi Stays Close to Center, Retrieved Sep 12, 2016 from https://fivethirtyeight.com/datalab/new-yorks-green-cabs-stay-close-to-the-city-center/
 - (Post Editorial Board, Oct 22, 2015) It’s not easy driving green: Uber & a new cab crisis, Retrieved  Sep 12, 2016 from http://nypost.com/2015/10/22/its-not-easy-driving-green-uber-a-new-cab-crisis/
+- Image Couresy: New York Taxi & Limousine Commission. Retrieved April 15, 2017 from http://www.nyc.gov/html/tlc/html/passenger/shl_passenger.shtml
