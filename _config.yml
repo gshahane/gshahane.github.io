@@ -23,7 +23,7 @@ author:
 
 # Disqus comment settings
 disqus_enabled:     false
-#disqus_shortname:   hnbloggithub
+disqus_shortname:   gshahane-github-io
 
 # GA
 google_analytics_code: UA-98175267-1
