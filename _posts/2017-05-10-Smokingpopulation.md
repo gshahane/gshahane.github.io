@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Does raising State Excise Taxes reduces Cigarette Smoking Population in USA?
+title: Does raising State Excise Taxes reduces Cigarette Smoking Population?
 description: Analyzing data from Centers for Disease Control and Prevention to study the effect.
 keywords: R, Tableau, Statistics
 tags: [R, Tableau]
@@ -12,7 +12,9 @@ Study of the impact of Excise Taxes on Cigarette on the smoking population in th
 
 ## 1. Introduction
 
-As per the Centers for Disease Control and Prevention, Smoking remains the primary cause of preventable deaths in the US, Killing an estimate of over 480,000 citizens each year. Along with a few direct initiatives, to target a bigger population of cigarette smokers, the government usually uses means of increasing excise tax on cigarette. The study focuses on whether governments’ changes in state excise tax on cigarette are really effective on the ground level? Through this project we look to study whether increasing taxes will have any effect on the smoking population? And will it affect each age group equally? To uncover the answers to these questions, we decided to take verify the relationship between taxation and behavior of smoking population belonging to various age groups in all the states of USA.
+As per the Centers for Disease Control and Prevention, Smoking remains the primary cause of preventable deaths in the US, Killing an estimate of over 480,000 citizens each year. Along with a few direct initiatives, to target a bigger population of cigarette smokers, the government usually uses means of increasing excise tax on cigarette.  
+
+The study focuses on whether changes in the State Excise Tax on Cigarette are really effective on the ground level? Will it affect a variety age groups in the smoking population equally? To uncover the answers to these questions, we decided to verify the relationship between taxation and the behavior of smoking population belonging to various age groups in all the states of USA.
 
 ## 2. Data Collection and Transformation
 
