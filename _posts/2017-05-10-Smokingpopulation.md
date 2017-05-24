@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Does raising State Excise Taxes reduces Cigarette Smoking Population?
+title: Does raising State Excise Tax reduces Cigarette Smoking Population?
 description: Analyzing data from Centers for Disease Control and Prevention to study the effect.
 keywords: R, Tableau, Statistics
 tags: [R, Tableau]
