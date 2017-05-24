@@ -33,9 +33,9 @@ This dataset records excise tax for cigarette per pack in dollars for all the st
 
 We can start with plotting a scatterplot (as shown below) for the Smoking Population Percentage Vs State Excise Tax. We can see that there is a pattern emerging through the data which tells us that the Smoking Population is decreasing with the increase in State Excise Tax. From a Correlation Coefficient of (r) -0.5422938, we can affirm the relationship. This answers our first research question.
 
-<center>![Imgur](http://i.imgur.com/hR2lbTq.png)</center>
+![Imgur](http://i.imgur.com/hR2lbTq.png)
 
-</br>Let's plot the same scatterplot for all the age groups to find out if the State Excise Tax affects all the groups equally.  
+Let's plot the same scatterplot for all the age groups to find out if the State Excise Tax affects all the groups equally.  
 
 <center>![Imgur](http://i.imgur.com/K77Tzkj.jpg)</center>
 
