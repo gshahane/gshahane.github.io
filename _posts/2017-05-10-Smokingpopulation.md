@@ -1,4 +1,11 @@
-<h2>Analysing Effect of Higher Excise Tax on Smoking Behavior of Various Age Groups</h2>
+---
+layout: post
+title: Does raising State Excise Taxes on Cigarette reduces Smoking Population?
+description: Analyzing data from CDC to study the effect on Smoking Percentage of Various Age Groups in USA.
+keywords: R, Tableau, Statistics
+tags: [R, Tableau]
+comments: true
+---
 
 ## Research Problem   
 Study of the impact of Excise Taxes on Cigarette on the smoking population in the United States.
