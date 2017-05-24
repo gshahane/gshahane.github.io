@@ -17,7 +17,7 @@ According to the National Safety Council report, approximately 38,300 people wer
 
 We attempts to create models that account for spatial and temporal features to determine likely vehicular crash conditions. It is expected that the findings from this paper would help civic authorities to take proactive actions on likely crash prone weather and traffic conditions. These models can also be distributed in form of an APIs and can be added as an additional safety layer on existing navigational applications for safer commutes.
 
-<h2>Data Collection and Aggregation</h2>
+<h2>2. Data Collection and Aggregation</h2>
 The data is extracted from Open Data based on the records collected from the Road Weather Information System of the State of Iowa to accommodate factors like weather, road conditions and crash details. The RWIS stations are spread across the State of Iowa, as shown in the map as below.
 
 ![Imgur](http://i.imgur.com/csJwy0g.png)  
@@ -33,7 +33,7 @@ This data is based on the State of Iowa’s Historic Traffic Data and is extract
 
 There were a lot of data points as the data was recorded for every 10 minutes interval for last 2.5 years. Since the Traffic and Weather data was going to be integrated with the Crash records, these data points were aggregated on hourly basis. Crash data was integrated with the aggregated records based on the closest RWIS station to the crash site. Finally, we created a dataset, with hourly record of Traffic and Weather on Highways of the State of Iowa with the Crash frequency observed for the hour.  
 
-<h2>Applying Machine Learning Algorithms</h2>
+<h2>3. Applying Machine Learning Algorithms</h2>
 
 We used many Machine Learning algorithms such as Linear Regression, Zero Inflated Binomial Regression, Decision Trees and Random Forest.
 
@@ -45,7 +45,7 @@ Moving forward, we also thought of dealing with the sparse data (since there wer
 
 We found the best method for prediction was the <b>Random Forest</b> method with a combination of down-sampling of majority class and up sampling of minority class to balance the three categories of prediction: No Crash (0), 1 Crash (1), and 1+ Crashes (2). This was we could balance the dataset. Random Forest algorithm avoids overfitting and predicts based on a variety of internal models it gave higher accuracy than any other models.
 
-<h2>Result</h2>
+<h2>4. Result</h2>
 
 The following variables were identified as the most important ones that contributed to the higher accuracy of the Random Forest model. We can see that the most important variables as Average Speed, Traffic Volume, Dew Point, Surface Temperature, Wind Direction, and Wind Speed.
 
@@ -55,18 +55,18 @@ The following Confusion Matrix summarizes the prediction accuracy of the Random 
 
 ![Confusion Matrix](https://raw.githubusercontent.com/gshahane/Vehicular-Crash-Prediction-using-Machine-Learning/master/images/result_randomForest_upDOwn.png)
 
-<h2>Conclusion</h2>
+<h2>5. Conclusion</h2>
 
 Radom Forest model predicts vehicular crashes with approximately <b>65% accuracy</b> using Weather and Traffic Data available with the State of Iowa. The result is obtained by up-sampling and down-sampling the majority and minority classes to match the crash frequencies.
 
-## Future Scope
+## 6. Future Scope
 The accuracy of the models can also be increased by including the data for previous years previous to 2015. With increase in prediction accuracy, as a potential use case, the developed models can be used with the real time Road Weather Information System data to predict the vehicular crash occurrences in real time. This will help Highway Authorities in taking precautionary actions towards avoiding crashes, and also caution the drivers to be more careful, and thereby making roads safer for everyone.
 
-<h2>References</h2>
+<h2>7. References</h2>
 - Abdel-Aty, M. A., Pemmanaboina, R. (2006). Calibrating a Real- Time Traffic Crash-Prediction Model Using Archived Weather and ITS Traffic Data, vol. 7(2)
 - Bin Islam, M. and Kanitpong, K (2008). Identification of factors in road accidents through in-depth accident analysis. In IATSS Research Vol.32 No.2, 58-67
 - C. Oh, J. Oh, and S. Ritchie, “Real-time estimation of freeway accident likelihood,” presented at the 80th Annu. Meet. Transportation Research Board, Washington, DC, USA, 2001.
 
-<h2> Links </h2>
+<h2>8. Links </h2>
 - <a href="https://github.com/gaurav-shahane/Vehicular-Crash-Prediction-using-Machine-Learning/blob/master/Research_Paper_VehCrash_Prediction_MachineLearning.pdf">Research Paper</a>
 - <a href="https://github.com/gaurav-shahane/Vehicular-Crash-Prediction-using-Machine-Learning/blob/master/Presentation_VehCrash_Prediction_MachineLearning.pdf">Presentation</a>
