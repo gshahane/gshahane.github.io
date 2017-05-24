@@ -37,20 +37,20 @@ We can start with plotting a scatterplot (as shown below) for the Smoking Popula
 
 Let's plot the same scatterplot for all the age groups to find out if the State Excise Tax affects all the groups equally.  
 
-<center>![Imgur](http://i.imgur.com/K77Tzkj.jpg)</center>
+![Imgur](http://i.imgur.com/K77Tzkj.jpg)
 
-</br>The scatterplot tells us that the rate of change in Smoking Population is different for all the age groups. In order to find out the group that is most and the least affected among the above. We find the best fit lines as below for the age groups using Linear Regression.
+The scatterplot tells us that the rate of change in Smoking Population is different for all the age groups. In order to find out the group that is most and the least affected among the above. We find the best fit lines as below for the age groups using Linear Regression.
 
 <b>For Age 18-24 Years:</b>
-</br>% Smoking_Population_Age18to24 = 29.8720 - 3.4638 * State Excise Tax
+% Smoking_Population_Age18to24 = 29.8720 - 3.4638 * State Excise Tax
 
-<b>For Age 25-44 Years:</b></br>
+<b>For Age 25-44 Years:</b>
 % Smoking_Population_Age25to44 =27.6920 - 3.6560 * State Excise Tax
 
-<b>For Age 45-64 Years:</b></br>
+<b>For Age 45-64 Years:</b>
 %Smoking_Population_Age45to65 = 24.0853 - 3.2025 * State Excise Tax
 
-<b>For Age 65+ Years:</b></br>
+<b>For Age 65+ Years:</b>
 %Smoking_Population_Age65plus = 10.8653 - 1.5286 * State Excise Tax
 
 
@@ -68,9 +68,9 @@ We can conclude that the policy of controlling smoking behavior works well for t
 
 One additional interesting observation that we found was via bar plots for all the age groups as below.
 
-<center>![Imgur](http://i.imgur.com/zFTVw0B.png)</center>
+![Imgur](http://i.imgur.com/zFTVw0B.png)
 
-</br> The older population, most likely, have been smoking since a long time and hence the tax raise doesn’t help reduce the smoking population much. Also, if we see there is a steep fall of percent of smoking population after 45-64 years. Giving this observation we feel that this is a potential indicator that many smokers belonging to this age group might not make it 65 years or more
+The older population, most likely, have been smoking since a long time and hence the tax raise doesn’t help reduce the smoking population much. Also, if we see there is a steep fall of percent of smoking population after 45-64 years. Giving this observation we feel that this is a potential indicator that many smokers belonging to this age group might not make it 65 years or more
 
 ## Limitations
 
