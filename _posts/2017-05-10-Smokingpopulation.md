@@ -56,13 +56,13 @@ The scatterplot tells us that the rate of change in Smoking Population is differ
 
 ## 5. Findings
 
-- Increase in Excise tax negatively correlated with the percentage of smoking population in United States.  
+- Increase in Excise tax <b>negatively correlated</b> with the percentage of smoking population in United States.  
 
-- As per our prediction, $1 rise in Excise Tax on Cigarette packet will result in decrease in smoking population by approximately 3%.
+- As per our prediction, <b>$1</b> rise in Excise Tax on Cigarette packet will result in decrease in smoking population by approximately <b>3%</b>.
 
-- Making cigarette expensive affected the least to the age group of 18 to 24 years, even though they might have the lowest income of all the age groups.
+- Making cigarette expensive affected the <b>least to the age group of 18 to 24 years,</b> even though they might have the lowest income of all the age groups.
 
-- Making cigarette expensive affected the most to the age group of 45 to 64 years, even though they might be earning more than any other age group.
+- Making cigarette expensive affected the <b>most to the age group of 45 to 64 years,</b> even though they might be earning more than any other age group.
 
 We can conclude that the policy of controlling smoking behavior works well for the middle aged citizens (45-64 years), rather than the youth (18-24 years). As per the findings, appropriate changes can be done in the policy or any other alternatives can be explored to influence the target age groups.
 
@@ -74,11 +74,11 @@ The older population, most likely, have been smoking since a long time and hence
 
 ## 6. Limitations
 
-1.	Federal taxes not considered: Variation in the Federal Taxes can also bring a change in the smoking percentage and can lead them to inaccurate results. As the next steps, we can use the combined effect of Federal and State Excise Taxes to analyze their effect on Smoking Population Percentage.
+1.	<b>Federal taxes not considered:</b> Variation in the Federal Taxes can also bring a change in the smoking percentage and can lead them to inaccurate results. As the next steps, we can use the combined effect of Federal and State Excise Taxes to analyze their effect on Smoking Population Percentage.
 
-2.	Restricted Range: The best fit line as shown in the scatterplots in the research question analysis only applies to the range of data (1996-2014) we have used for analysis. If the data are made available by CDC, we can generalize the results better.
+2.	<b>Restricted Range</b>: The best fit line as shown in the scatterplots in the research question analysis only applies to the range of data (1996-2014) we have used for analysis. If the data are made available by CDC, we can generalize the results better.
 
-3.	Causation:  We cannot infer the correlation as causation as there can be other factors too which affected the percentage of Smoking Population in United States. As only 29% of the variance in the Smoking Population Percentage is explained by State Excise Tax Rate, we can explore more parameters that might affect the Smoking Population Percentage.
+3.	<b>Causation:</b>  We cannot infer the correlation as causation as there can be other factors too which affected the percentage of Smoking Population in United States. As only 29% of the variance in the Smoking Population Percentage is explained by State Excise Tax Rate, we can explore more parameters that might affect the Smoking Population Percentage.
 
 
 ## 7. Attachments
