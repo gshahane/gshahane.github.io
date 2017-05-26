@@ -5,18 +5,20 @@ description:
 keywords: resume
 ---
 
-Gaurav Shahane
+## Gaurav Shahane
 
-### Education:
+#### Education:
 
-#### University of Maryland College Park, MD,  
+**University of Maryland College Park, MD,**  
 **Master of Information Management (Data Analytics)** [05/2017]
-#### University of Pune, India,  
+
+**University of Pune, India,**  
 **Master of Business Administration (Marketing)** [07/2012]
-#### Dr. Babasaheb Ambedkar Marathwada University, India,  
+
+**Dr. Babasaheb Ambedkar Marathwada University, India,**  
 **Bachelor of Engineering (E&amp;TC)** [06/2010]
 
-### Work Experience:
+#### Work Experience:
 
 #### Breezio, Inc. MD
 **Data Scientist Intern** [06/2016 -05/2017]  
@@ -29,7 +31,7 @@ Content Management platform, for better content discovery and Increased User Eng
 * Used TF-IDF algorithm from Scikit-learn Package for identifying unique keywords.
 * Complete application development with multiple scripts to create corpus of text, tags and stopwords.
 
-### Tata Technologies, India
+#### Tata Technologies, India
 **Functional Consultant** [12/2012 - 07/2015]  
 Collaborated with business teams for requirements gathering, solution proposal and implementing solutions for enabling automation, optimization and reporting of sales and service processes on SAP.
 * Implemented Business Processes, Applications and Dashboards based on SAP.
@@ -37,14 +39,14 @@ Collaborated with business teams for requirements gathering, solution proposal a
 * Led project team for streamlining and optimization Export Processes for better control and clarity.
 * Optimized and Automated processes that resulted in savings of 300,000-6,000,000 INR per annum.
 
-### Skills:
+#### Skills:
 **Familiar with Big Data technologies:** Hadoop, Hive, Pig, Spark  
 **Machine Learning:** Multivariate Regression, Neural Networks, Decision Trees, Naive Bayes Classifiers  
 **Programming Languages and Databases:** Python, R, Matlab, Tableau, Neo4j, SQL, PostgreSQL  
 **Python Packages:** Scikit-learn, Pandas, Numpy, Matplotlib, Seaborn, NLTK, PyMySQL, Jupyter Notebook  
 **Web Development:** Flask REST API Framework, HTML, CSS, XML, JSON, AWS  
 
-### Academic Projects:
+#### Academic Projects:
 **Neural Networks Implementations with Matlab** [05/2017]
 * Programmed basic perceptron learning algorithm for classification task using Neural Networks Toolbox.
 * Implemented Neural Network with Error Backpropagation with Gradient Descent, Adaptive learning and RProp.
