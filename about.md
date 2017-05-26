@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About
+title: About me
 description: Little information about the human behind this site.
 keywords: about page, about me
 ---
@@ -11,8 +11,7 @@ My name is Gaurav Shahane.
 
 I'm a data enthusiast. I'm passionate about business.
 I'm in love with data science for it's capability in complex problem-solving.
-Currently, I'm tackling business problems using Statistics and Programming.
-In the long run, I want to get better and better at doing so.
+Currently, as a newly graduate student, I'm tackling business problems using Statistics and Programming via an internship and a variety of academic projects. In the long run, I want to get better and better at doing so.
 
 They say, best way to learn something is to teach it.
 Hence, I'm writing this blog to learn and share interesting developments in Data Science.
