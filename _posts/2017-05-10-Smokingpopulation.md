@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Does raising Excise Tax reduces Cigarette Smoking Population?
+title: Does raising Excise Tax discourage smoking?
 description: Analyzing CDC surveys from 1996-2014 to study the effect.
 keywords: R, Tableau, Statistics
 tags: [R, Tableau]
