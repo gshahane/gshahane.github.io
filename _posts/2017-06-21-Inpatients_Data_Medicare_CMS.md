@@ -6,7 +6,6 @@ keywords: Medicare, Python, Data Analysis, Tuorial
 tags: [Tutorial, Python, Data Analysis, Visualization, Seaborn]
 comments: true
 ---
-
 The dataset is from Center for Medicare and Medicaid Services which contains costs of 100 most frequently billed discharges billed under medicare from almost 3000 US hospitals. Here is the groundwork of cleaning and analyzing the data as the first step in understandig the data.
 
 For a detailed understanding of the data, please check this [source link]( https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Inpatient2011.html) or [this pdf](https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Downloads/Inpatient_Methodology.pdf)
