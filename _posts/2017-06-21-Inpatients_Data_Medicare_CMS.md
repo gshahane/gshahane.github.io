@@ -1,11 +1,12 @@
 ---
 layout: post
-title: Tutorial &#58 Medicare Data Analysis and Visualization.
-description: Using Python, Pandas, Seaborn, and Folium.
+title: Tutorial: Medicare Data Analysis and Visualization.
+description: Data Cleaning and Analysis using Python-Pandas and Seaborn.
 keywords: Medicare, Python, Data Analysis, Tuorial
 tags: [Tutorial, Python, Data Analysis, Visualization, Seaborn]
 comments: true
 ---
+
 The dataset is from Center for Medicare and Medicaid Services which contains costs of 100 most frequently billed discharges billed under medicare from almost 3000 US hospitals. Here is the groundwork of cleaning and analyzing the data as the first step in understandig the data.
 
 For a detailed understanding of the data, please check this [source link]( https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Inpatient2011.html) or [this pdf](https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Downloads/Inpatient_Methodology.pdf)
@@ -120,6 +121,7 @@ df.head()
 </table>
 </div>
 
+Continued..
 
 <div>
 <table border="1" class="dataframe">
@@ -668,12 +670,6 @@ df[df['total_discharge']== 3383]
       <th>p_address</th>
       <th>p_city</th>
       <th>p_state</th>
-      <th>p_zip</th>
-      <th>h_ref_region</th>
-      <th>total_discharge</th>
-      <th>avg_cov_charge</th>
-      <th>avg_total_payment</th>
-      <th>avg_medicare_payment</th>
     </tr>
   </thead>
   <tbody>
@@ -685,6 +681,28 @@ df[df['total_discharge']== 3383]
       <td>535 EAST 70TH STREET</td>
       <td>NEW YORK</td>
       <td>NY</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+Continued..
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>p_zip</th>
+      <th>h_ref_region</th>
+      <th>total_discharge</th>
+      <th>avg_cov_charge</th>
+      <th>avg_total_payment</th>
+      <th>avg_medicare_payment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
       <td>10021</td>
       <td>NY - Manhattan</td>
       <td>3383</td>
@@ -695,8 +713,6 @@ df[df['total_discharge']== 3383]
   </tbody>
 </table>
 </div>
-
-
 
 ### 2.5 Average Charges and Payments <a name="avg_cp"></a>  
 
@@ -802,12 +818,6 @@ df[df['avg_cov_charge'] == 929118]
       <th>p_address</th>
       <th>p_city</th>
       <th>p_state</th>
-      <th>p_zip</th>
-      <th>h_ref_region</th>
-      <th>total_discharge</th>
-      <th>avg_cov_charge</th>
-      <th>avg_total_payment</th>
-      <th>avg_medicare_payment</th>
     </tr>
   </thead>
   <tbody>
@@ -819,6 +829,27 @@ df[df['avg_cov_charge'] == 929118]
       <td>300 PASTEUR DRIVE</td>
       <td>STANFORD</td>
       <td>CA</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+Continued..
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>p_zip</th>
+      <th>h_ref_region</th>
+      <th>total_discharge</th>
+      <th>avg_cov_charge</th>
+      <th>avg_total_payment</th>
+      <th>avg_medicare_payment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
       <td>94305</td>
       <td>CA - San Mateo County</td>
       <td>11</td>
@@ -829,7 +860,6 @@ df[df['avg_cov_charge'] == 929118]
   </tbody>
 </table>
 </div>
-
 
 
 The case is Stanford Hospital, from California.  
