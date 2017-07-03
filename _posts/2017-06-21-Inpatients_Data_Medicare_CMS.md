@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Tutorial: Medicare Data Analysis and Visualization.
-description: Data Cleaning and Analysis using Python-Pandas and Seaborn.
+title: Tutorial &#58 Medicare Data Analysis and Visualization.
+description: Using Python, Pandas, Seaborn, and Folium.
 keywords: Medicare, Python, Data Analysis, Tuorial
 tags: [Tutorial, Python, Data Analysis, Visualization, Seaborn]
 comments: true
