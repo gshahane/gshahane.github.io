@@ -68,12 +68,6 @@ df.head()
       <th>Provider Street Address</th>
       <th>Provider City</th>
       <th>Provider State</th>
-      <th>Provider Zip Code</th>
-      <th>Hospital Referral Region Description</th>
-      <th>Total Discharges</th>
-      <th>Average Covered Charges</th>
-      <th>Average Total Payments</th>
-      <th>Average Medicare Payments</th>
     </tr>
   </thead>
   <tbody>
@@ -85,12 +79,6 @@ df.head()
       <td>1108 ROSS CLARK CIRCLE</td>
       <td>DOTHAN</td>
       <td>AL</td>
-      <td>36301</td>
-      <td>AL - Dothan</td>
-      <td>91</td>
-      <td>$32963.07</td>
-      <td>$5777.24</td>
-      <td>$4763.73</td>
     </tr>
     <tr>
       <th>1</th>
@@ -100,12 +88,6 @@ df.head()
       <td>2505 U S HIGHWAY 431 NORTH</td>
       <td>BOAZ</td>
       <td>AL</td>
-      <td>35957</td>
-      <td>AL - Birmingham</td>
-      <td>14</td>
-      <td>$15131.85</td>
-      <td>$5787.57</td>
-      <td>$4976.71</td>
     </tr>
     <tr>
       <th>2</th>
@@ -115,12 +97,6 @@ df.head()
       <td>205 MARENGO STREET</td>
       <td>FLORENCE</td>
       <td>AL</td>
-      <td>35631</td>
-      <td>AL - Birmingham</td>
-      <td>24</td>
-      <td>$37560.37</td>
-      <td>$5434.95</td>
-      <td>$4453.79</td>
     </tr>
     <tr>
       <th>3</th>
@@ -130,12 +106,6 @@ df.head()
       <td>50 MEDICAL PARK EAST DRIVE</td>
       <td>BIRMINGHAM</td>
       <td>AL</td>
-      <td>35235</td>
-      <td>AL - Birmingham</td>
-      <td>25</td>
-      <td>$13998.28</td>
-      <td>$5417.56</td>
-      <td>$4129.16</td>
     </tr>
     <tr>
       <th>4</th>
@@ -145,6 +115,64 @@ df.head()
       <td>1000 FIRST STREET NORTH</td>
       <td>ALABASTER</td>
       <td>AL</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Provider Zip Code</th>
+      <th>Hospital Referral Region Description</th>
+      <th>Total Discharges</th>
+      <th>Average Covered Charges</th>
+      <th>Average Total Payments</th>
+      <th>Average Medicare Payments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>36301</td>
+      <td>AL - Dothan</td>
+      <td>91</td>
+      <td>$32963.07</td>
+      <td>$5777.24</td>
+      <td>$4763.73</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>35957</td>
+      <td>AL - Birmingham</td>
+      <td>14</td>
+      <td>$15131.85</td>
+      <td>$5787.57</td>
+      <td>$4976.71</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>35631</td>
+      <td>AL - Birmingham</td>
+      <td>24</td>
+      <td>$37560.37</td>
+      <td>$5434.95</td>
+      <td>$4453.79</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>35235</td>
+      <td>AL - Birmingham</td>
+      <td>25</td>
+      <td>$13998.28</td>
+      <td>$5417.56</td>
+      <td>$4129.16</td>
+    </tr>
+    <tr>
+      <th>4</th>
       <td>35007</td>
       <td>AL - Birmingham</td>
       <td>18</td>
@@ -155,7 +183,6 @@ df.head()
   </tbody>
 </table>
 </div>
-
 
 
 The first thing to check is always the **dimentions of the data** to understand not only the number of variables but also the number of records that we are dealing with. Here, we have 12 variables with 163,065 rows of records.
@@ -549,7 +576,7 @@ plt.title("Number of Treatments Vs Number of Providers");
 ```
 
 
-![png](Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_29_0.png)
+![png](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_29_0.png)
 
 
 There is a sufficient representation for low, medium and high numbers of treatment providers in the dataset. We can subset the data if we want to analyze the data for general, multipurpose or specialty healthcare providers.
@@ -569,7 +596,7 @@ plt.show();
 ```
 
 
-![png](Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_33_0.png)
+![png](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_33_0.png)
 
 
 Some states are over represented in the data (like CA, TX, FL, NY) and some states are under-represented (like DE, VT, WY, AK). Around more than half the states that cover more than 2000 treatments have a sufficient enough number for any analysis. Any state-wise conclusions need to take in consideration the number of records from the states.
@@ -616,7 +643,7 @@ plt.title("The number of Discharges by Providers count");
 ```
 
 
-![png](Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_39_0.png)
+![png](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_39_0.png)
 
 
 The following is the record with the discharge value.  
@@ -818,7 +845,7 @@ sns.distplot(a = df['avg_medicare_payment'], ax = axes[2]);
 ```
 
 
-![png](Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_47_0.png)
+![png](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_47_0.png)
 
 
 Let's plot the same plot removing outliers.
@@ -834,7 +861,7 @@ sns.distplot(a = trial_cp['avg_medicare_payment'], ax = axes[2]);
 ```
 
 
-![png](Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_49_0.png)
+![png](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_49_0.png)
 
 
 Removing the outlier, the distribution of the amount seems to be a bit normal with skew to the right.
@@ -883,7 +910,7 @@ sns.distplot(a = trial_cp['ben_payment']);
 ```
 
 
-![png](Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_54_0.png)
+![png](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_54_0.png)
 
 
 Outlier as below.
@@ -910,7 +937,7 @@ sns.distplot(a = trial_cp['ben_payment']);
 ```
 
 
-![png](Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_58_0.png)
+![png](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_58_0.png)
 
 
 Again a normal distribution for the payments being done by beneficiary or third parties.  
@@ -1025,7 +1052,7 @@ axes[2].set_xlabel("Average Beneficiary Payment");
 ```
 
 
-![png](Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_62_0.png)
+![png](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_62_0.png)
 
 
 <span style ="color: blue"> **Observations:** </span>
@@ -1067,7 +1094,7 @@ map.choropleth(geo_path = 'state.geo.json',
 map
 ```
 
-![img](Inpatients_Data_Medicare_CMS_files/map.jpg)
+![img](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/map.jpg)
 
 
 <span style ="color: blue"> **Observations:** </span> As expected, Healthcare is costly in California and New York as the cost of living is on the higher side in these states. We can also observe higher healthcare costs in Alaska.
@@ -1176,7 +1203,7 @@ plt.show();
 ```
 
 
-![png](Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_72_0.png)
+![png](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_72_0.png)
 
 
 We can observe the most prevalent diagnosis and treatment procedures that consume the most Medicare Payments. Let's explore them in detail with respect to their overall spread as follows.
@@ -1231,12 +1258,12 @@ plt.show();
 
 
 
-    <matplotlib.text.Text at 0x1ef8217ad68>
 
 
 
 
-![png](Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_75_1.png)
+
+![png](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/Inpatients_Data_Medicare_CMS_75_1.png)
 
 
 <span style ="color: blue"> **Observations:** </span> The results are surprising as two of the most prevalent diagnosis that consume the Highest Average Medicare Payments are related to **food poisoning/infections**. While these are avoidable conditions, it will need some work on the part of government to address the causes. This could be an opportunity to enhance health of citizens as well as a source of huge savings too.  
