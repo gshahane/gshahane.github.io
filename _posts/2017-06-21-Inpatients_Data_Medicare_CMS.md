@@ -1,13 +1,20 @@
 ---
 layout: post
+title: LinkedIn12 &#58 Pool of Opportunities.
+description: Strategic redesign of LinkedIn's products and services.
+keywords: Strategic Information Management, Strategy, Business Analysis, LinkedIn
+tags: [Strategy, Business Analysis]
+comments: true
+---
+
+---
+layout: post
 title: Tutorial: Medicare Data Analysis and Visualization.
-description: Data Cleaning and Analysis using Python-Pandas and Seaborn
+description: Data Cleaning and Analysis using Python-Pandas and Seaborn.
 keywords: Medicare, Python, Data Analysis, Tuorial
 tags: [Tutorial, Python, Data Analysis, Visualization, Seaborn]
 comments: true
 ---
-
-## Data Cleaning and Exploratory Analysis
 
 The dataset is from Center for Medicare and Medicaid Services which contains costs of 100 most frequently billed discharges billed under medicare from almost 3000 US hospitals. Here is the groundwork of cleaning and analyzing the data as the first step in understandig the data.
 
