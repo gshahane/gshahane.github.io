@@ -1300,8 +1300,3 @@ Another observation could be that the top four categories have a lot of spread (
 
 ### Dataset Source:  
 Centers for Medicare and Medicaid Services, Inpatient Charge Data FY 2011, Retrieved from https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Inpatient2011.html
-
-
-```python
-
-```
