@@ -1122,7 +1122,7 @@ map.choropleth(geo_path = 'state.geo.json',
 map
 ```
 
-![img](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/map.jpg)
+![img](https://raw.githubusercontent.com/gshahane/gshahane.github.io/master/_posts/Inpatients_Data_Medicare_CMS_files/map.JPG)
 
 
 <span style ="color: blue"> **Observations:** </span> As expected, Healthcare is costly in California and New York as the cost of living is on the higher side in these states. We can also observe higher healthcare costs in Alaska.
