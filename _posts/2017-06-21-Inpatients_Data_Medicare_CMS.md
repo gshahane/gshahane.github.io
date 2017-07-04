@@ -11,7 +11,7 @@ The dataset is from Center for Medicare and Medicaid Services which contains cos
 For a detailed understanding of the data, please check this [source link]( https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Inpatient2011.html) or [this pdf](https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Downloads/Inpatient_Methodology.pdf)
 
 
-****
+****  
 ### Table of contents
 
 **Data Preprocessing**  
@@ -31,7 +31,7 @@ For a detailed understanding of the data, please check this [source link]( https
 
 3.1 [Is Medicare really effective in bringing cost down for patients?](#compare)  
 3.2 [Are there strong differences among healthcare costs for all US states?](#map)  
-3.3 [Top 10 Treatments (DRGs) that consume the highest Average Medicare Payments](#topten)
+3.3 [Top 10 Treatments (DRGs) that consume the highest Average Medicare Payments](#topten)  
 ****
 
 ### 1.1 Data Pre-processing <a name="dataprep"></a>
@@ -120,7 +120,7 @@ df.head()
 </table>
 </div>
 
-Continued..
+Dataset Continued..
 
 <div>
 <table border="1" class="dataframe">
@@ -420,7 +420,7 @@ df_drg.tail()
 
 These are the variety of treatments for which the amounts have been charged. Moving ahead, we can aggregate charges on this level to get an overall picture of costs associated with the diagnosis and treatments across USA.
 
-### 2.2 Provider IDs <a name"p_id"></a>
+### 2.2 Provider IDs <a name="p_id"></a>
 
 Provider IDs are the hospital IDs that provided care for the patients. We have exactly 3337 unique hospitals in the dataset.
 
@@ -685,13 +685,12 @@ df[df['total_discharge']== 3383]
 </table>
 </div>
 
-Continued..
+Dataset Continued..
 
 <div>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>p_zip</th>
       <th>h_ref_region</th>
       <th>total_discharge</th>
@@ -833,7 +832,7 @@ df[df['avg_cov_charge'] == 929118]
 </table>
 </div>
 
-Continued..
+Dataset Continued..
 
 <div>
 <table border="1" class="dataframe">
